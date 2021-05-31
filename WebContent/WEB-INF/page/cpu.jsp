@@ -23,17 +23,25 @@ $(function(){
     <tr>
         <td>id</td>
         <td>name</td>
-        <td>hp</td>
-        <td>damage</td>
+        <td>cores</td>
+        <td>nickname</td>
+        <td>brand</td>
+        <td>platform</td>
+        <td>frequency</td>
+        <td>category</td>
         <td>edit</td>
         <td>delete</td>
     </tr>
-    <c:forEach items="${heros}" var="hero" varStatus="st">
+    <c:forEach items="${cpus}" var="cpu" varStatus="st">
         <tr>
-            <td>${hero.id}</td>
-            <td>${hero.name}</td>
-            <td>${hero.hp}</td>
-            <td>${hero.damage}</td>
+            <td>${cpu.id}</td>
+            <td>${cpu.name}</td>
+            <td>${cpu.cores}</td>
+            <td>${cpu.nickname}</td>
+            <td>${cpu.brand}</td>
+            <td>${cpu.platform}</td>
+            <td>${cpu.frequency}</td>
+            <td>${cpu.category}</td>
             <td><a href="editHero?id=${hero.id}">编辑</a></td>
             <td><a href="deleteHero?id=${hero.id}">删除</a></td>
         </tr>

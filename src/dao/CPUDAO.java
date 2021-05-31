@@ -21,13 +21,13 @@ public class CPUDAO {
 	}
 	
 	public Connection getConnection() throws SQLException{
-		return DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/Device?characterEncoding=UTF-8", "root","atobefuji");
+		return DriverManager.getConnection("jdbc:mysql://192.168.92.28:3306/Device?characterEncoding=UTF-8", "root","abc123");
 	}
 	
 	public int getTotal() {
 		int total = 0;
 		try(Connection c = getConnection(); Statement s = c.createStatement();){
-			String sql = "select count(*) from hero";
+			String sql = "select count(*) from CPU";
 			
 			ResultSet rs = s.executeQuery(sql);
 			while(rs.next()) {
@@ -42,32 +42,42 @@ public class CPUDAO {
 	}
 	
 	public void add(CPU cpu) {
-		String sql = "insert into hero value(null, ?, ?, ?)";
+		String sql = "insert into Device value(null, ?, ?, ?, ?, ?, ?, ?, ?)";
 		try(Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql);){
 			ps.setString(1, cpu.name);
-			ps.setFloat(2, cpu.hp);
-			ps.setInt(3, cpu.damage);
+			ps.setInt(2, cpu.cores);
+			ps.setString(3, cpu.nickname);
+			ps.setString(4, cpu.brand);
+			ps.setString(5, cpu.platform);
+			ps.setFloat(6, cpu.frequency);
+			ps.setString(7, cpu.sspec);
+			ps.setString(8, cpu.category);
 			
 			ps.execute();
 			
 			ResultSet rs = ps.getGeneratedKeys();
 			if(rs.next()){
 				int id = rs.getInt(1);
-				hero.id = id;
+				cpu.id = id;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public void update(Hero hero) {
-		String sql = "udpate hero set name = ?, hp = ?, damage = ? where id = ?";
+	public void update(CPU cpu) {
+		String sql = "udpate hero set name = ?, cores = ?, nickname = ?, brand = ?, platform = ?, frequency = ?, sspec = ?, category = ? where id = ?";
 		try (Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql);) {
 			   
-            ps.setString(1, hero.name);
-            ps.setFloat(2, hero.hp);
-            ps.setInt(3, hero.damage);
-            ps.setInt(4, hero.id);
+			ps.setString(1, cpu.name);
+			ps.setInt(2, cpu.cores);
+			ps.setString(3, cpu.nickname);
+			ps.setString(4, cpu.brand);
+			ps.setString(5, cpu.platform);
+			ps.setFloat(6, cpu.frequency);
+			ps.setString(7, cpu.sspec);
+			ps.setString(8, cpu.category);
+			ps.setInt(9, cpu.id);
    
             ps.execute();
    
@@ -90,8 +100,8 @@ public class CPUDAO {
             e.printStackTrace();
         }
     }
-	public Hero get(int id) {
-        Hero hero = null;
+	public CPU get(int id) {
+        CPU cpu = null;
    
         try (Connection c = getConnection(); Statement s = c.createStatement();) {
    
@@ -100,31 +110,41 @@ public class CPUDAO {
             ResultSet rs = s.executeQuery(sql);
    
             if (rs.next()) {
-                hero = new Hero();
+                cpu = new CPU();
                 String name = rs.getString(2);
-                float hp = rs.getFloat("hp");
-                int damage = rs.getInt(4);
-                hero.name = name;
-                hero.hp = hp;
-                hero.damage = damage;
-                hero.id = id;
+                int cores = rs.getInt(3);
+                String nickname = rs.getString(4);
+                String brand = rs.getString(5);
+                String platform = rs.getString(6);
+                float frequency = rs.getFloat(7);
+                String sspec = rs.getString(8);
+                String category = rs.getString(9);
+                cpu.name = name;
+                cpu.cores = cores;
+                cpu.nickname = nickname;
+                cpu.brand = brand;
+                cpu.platform = platform;
+                cpu.frequency = frequency;
+                cpu.sspec = sspec;
+                cpu.category = category;
+                cpu.id = id;
             }
    
         } catch (SQLException e) {
    
             e.printStackTrace();
         }
-        return hero;
+        return cpu;
     }
 	
-	public List<Hero> list(){
+	public List<CPU> list(){
 		return  list(0, Short.MAX_VALUE);
 	}
 	
-	public List<Hero> list(int start, int count){
-		List<Hero> heros = new ArrayList<Hero>();
+	public List<CPU> list(int start, int count){
+		List<CPU> cpus = new ArrayList<CPU>();
 		
-		String sql = "select * from hero order by id desc limit ?, ?";
+		String sql = "select * from CPU order by id desc limit ?, ?";
 		
 		try(Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql)){
 			ps.setInt(1, start);
@@ -133,20 +153,30 @@ public class CPUDAO {
 			ResultSet rs = ps.executeQuery();
 			
 			while(rs.next()) {
-				Hero hero = new Hero();
+				CPU cpu = new CPU();
 				int id = rs.getInt(1);
 				String name = rs.getString(2);
-				Float hp = rs.getFloat(3);
-				int damage = rs.getInt(4);
-				hero.id = id;
-				hero.name = name;
-				hero.hp = hp;
-				hero.damage = damage;
-				heros.add(hero);
+                int cores = rs.getInt(3);
+                String nickname = rs.getString(4);
+                String brand = rs.getString(5);
+                String platform = rs.getString(6);
+                float frequency = rs.getFloat(7);
+                String sspec = rs.getString(8);
+                String category = rs.getString(9);
+                cpu.name = name;
+                cpu.cores = cores;
+                cpu.nickname = nickname;
+                cpu.brand = brand;
+                cpu.platform = platform;
+                cpu.frequency = frequency;
+                cpu.sspec = sspec;
+                cpu.category = category;
+                cpu.id = id;
+				cpus.add(cpu);
 			}
 		}catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return heros;
+		return cpus;
 	}
 }
