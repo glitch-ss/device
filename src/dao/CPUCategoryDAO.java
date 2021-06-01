@@ -9,10 +9,10 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import pojo.CPU;
+import pojo.CPUCategory;
 
-public class CPUDAO {
-	public CPUDAO() {
+public class CPUCategoryDAO {
+	public CPUCategoryDAO() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
@@ -27,7 +27,7 @@ public class CPUDAO {
 	public int getTotal() {
 		int total = 0;
 		try(Connection c = getConnection(); Statement s = c.createStatement();){
-			String sql = "select count(*) from CPU";
+			String sql = "select count(*) from CPUCategory";
 			
 			ResultSet rs = s.executeQuery(sql);
 			while(rs.next()) {
@@ -41,13 +41,17 @@ public class CPUDAO {
 		return total;
 	}
 	
-	public void add(CPU cpu) {
-		String sql = "insert into CPUCategory value(null, ?, ?, ?, ?)";
+	public void add(CPUCategory cpu) {
+		String sql = "insert into CPUCategory value(null, ?, ?, ?, ?, ?, ?, ?, ?)";
 		try(Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql);){
-			ps.setInt(1, cpu.categoryId);
-			ps.setString(2, cpu.location);
-			ps.setString(3, cpu.serialnumber);
-			ps.setString(4, cpu.label);
+			ps.setString(1, cpu.name);
+			ps.setInt(2, cpu.cores);
+			ps.setString(3, cpu.nickname);
+			ps.setString(4, cpu.brand);
+			ps.setString(5, cpu.platform);
+			ps.setFloat(6, cpu.frequency);
+			ps.setString(7, cpu.sspec);
+			ps.setString(8, cpu.category);
 			
 			ps.execute();
 			
@@ -61,15 +65,19 @@ public class CPUDAO {
 		}
 	}
 	
-	public void update(CPU cpu) {
-		String sql = "udpate CPU set categoryId = ?, location = ?, serialnumber = ?, label = ? where id = ?";
+	public void update(CPUCategory cpu) {
+		String sql = "udpate CPUCategory set name = ?, cores = ?, nickname = ?, brand = ?, platform = ?, frequency = ?, sspec = ?, category = ? where id = ?";
 		try (Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql);) {
 			   
-			ps.setInt(1, cpu.categoryId);
-			ps.setString(2, cpu.location);
-			ps.setString(3, cpu.serialnumber);
-			ps.setString(4, cpu.label);
-			ps.setInt(5, cpu.id);
+			ps.setString(1, cpu.name);
+			ps.setInt(2, cpu.cores);
+			ps.setString(3, cpu.nickname);
+			ps.setString(4, cpu.brand);
+			ps.setString(5, cpu.platform);
+			ps.setFloat(6, cpu.frequency);
+			ps.setString(7, cpu.sspec);
+			ps.setString(8, cpu.category);
+			ps.setInt(9, cpu.id);
    
             ps.execute();
    
@@ -83,7 +91,7 @@ public class CPUDAO {
 		   
         try (Connection c = getConnection(); Statement s = c.createStatement();) {
    
-            String sql = "delete from CPU where id = " + id;
+            String sql = "delete from CPUCategory where id = " + id;
    
             s.execute(sql);
    
@@ -92,17 +100,17 @@ public class CPUDAO {
             e.printStackTrace();
         }
     }
-	public CPU get(int id) {
-        CPU cpu = null;
+	public CPUCategory get(int id) {
+        CPUCategory cpu = null;
    
         try (Connection c = getConnection(); Statement s = c.createStatement();) {
    
-            String sql = "select * from CPU where id = " + id;
+            String sql = "select * from CPUCategory where id = " + id;
    
             ResultSet rs = s.executeQuery(sql);
    
             if (rs.next()) {
-                cpu = new CPU();
+                cpu = new CPUCategory();
                 String name = rs.getString(2);
                 int cores = rs.getInt(3);
                 String nickname = rs.getString(4);
@@ -129,7 +137,7 @@ public class CPUDAO {
         return cpu;
     }
 	
-	public List<CPU> list(){
+	public List<CPUCategory> list(){
 		return  list(0, Short.MAX_VALUE);
 	}
 	

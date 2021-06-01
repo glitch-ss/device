@@ -2,60 +2,39 @@ package pojo;
 
 public class CPU {
 	public int id;
-	public String name;
-	public int cores;
-	public String nickname;
-	public String brand;
-	public String platform;
-	public float frequency;
-	public String sspec;
-	public String category;
-	public String getName() {
-		return name;
+	public int categoryId;
+	public String location;
+	public String serialnumber;
+	public String label;
+
+	public int getId() {
+		return id;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setId(int id) {
+		this.id = id;
 	}
-	public int getCores() {
-		return cores;
+	public int getCategoryId() {
+		return categoryId;
 	}
-	public void setCores(int cores) {
-		this.cores = cores;
+	public void setCategoryId(int categoryId) {
+		this.categoryId = categoryId;
 	}
-	public String getNickname() {
-		return nickname;
+	public String getLocation() {
+		return location;
 	}
-	public void setNickname(String nickname) {
-		this.nickname = nickname;
+	public void setLocation(String location) {
+		this.location = location;
 	}
-	public String getBrand() {
-		return brand;
+	public String getSerialnumber() {
+		return serialnumber;
 	}
-	public void setBrand(String brand) {
-		this.brand = brand;
+	public void setSerialnumber(String serialnumber) {
+		this.serialnumber = serialnumber;
 	}
-	public String getPlatform() {
-		return platform;
+	public String getLabel() {
+		return label;
 	}
-	public void setPlatform(String platform) {
-		this.platform = platform;
-	}
-	public float getFrequency() {
-		return frequency;
-	}
-	public void setFrequency(float frequency) {
-		this.frequency = frequency;
-	}
-	public String getSspec() {
-		return sspec;
-	}
-	public void setSspec(String sspec) {
-		this.sspec = sspec;
-	}
-	public String getCategory() {
-		return category;
-	}
-	public void setCategory(String category) {
-		this.category = category;
+	public void setLabel(String label) {
+		this.label = label;
 	}
 }
