@@ -10,14 +10,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import pojo.CPUCategory;
-import dao.CPUCategoryDAO;
+import pojo.CPU;
+import pojo.CPUdetail;
+import dao.CPUDAO;
 
 @Controller
-public class IndexController {
-	@RequestMapping("/cpucategory")
+public class CPUListController {
+	@RequestMapping("/cpulist")
 	public ModelAndView cpuList(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		ModelAndView mav = new ModelAndView("cpucategory");
+		ModelAndView mav = new ModelAndView("cpulist");
 		int start = 0;
 		int count = 5;
 		
@@ -30,7 +31,7 @@ public class IndexController {
 		int next = start + count;
 		int pre = start - count;
 		
-		int total = new CPUCategoryDAO().getTotal();
+		int total = new CPUDAO().getTotal();
 		
 		int last;
 		if (0 == total % count)
@@ -43,29 +44,10 @@ public class IndexController {
 		mav.addObject("pre", pre);
 		mav.addObject("last", last);
 		
-		List<CPUCategory> cpus = new CPUCategoryDAO().list(start, count);
+		List<CPUdetail> cpus = new CPUDAO().listDetail(start, count);
 		//request.setAttribute("cpus", cpus);
 		//request.getRequestDispatcher("cpu.jsp").forward(request, response);
 		mav.addObject("cpus", cpus);
 		return mav;
-	}
-	
-	
-	@RequestMapping("/addcpu")
-	public ModelAndView addcpu(HttpServletRequest request, HttpServletResponse response) throws Exception {
-	
-		try {
-			String action = String.valueOf(request.getParameter("action"));
-			System.out.println("action: " + action);
-			ModelAndView mav = new ModelAndView("addcpu");
-			List<CPUCategory> cpuscategory = new CPUCategoryDAO().list();
-			mav.addObject("cpus", cpuscategory);
-			return mav;
-		} catch(NumberFormatException e) {
-			ModelAndView mav = new ModelAndView("redirect:/cpucategory");
-	        return mav;
-		}
-		
-		
 	}
 }
