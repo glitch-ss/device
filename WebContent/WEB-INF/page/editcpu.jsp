@@ -8,16 +8,15 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
   
 
-<form action="addcpu">
- 
+<form action="editcpu">
+ 	
     CPU name: <select name="categoryId">
-    <option value=""></option>
-    <c:forEach items="${cpus}" var="cpu" varStatus="st">
-    <option value = "${cpu.id}">${cpu.name }</option>
+    <c:forEach items="${cpuscategory}" var="cpucategory" varStatus="st">
+    <option value = "${cpucategory.id}" <c:if test="${cpucategory.id == cpu.id}"> selected="selected" </c:if>>${cpucategory.name }</option>
     </c:forEach>
     </select></br>
-    CPU location: <input type="text" name="location" value=""><br />
-	serial number: <input type="text" name="serialnumber" value=""><br/>
-	label: <input type="text" name="label" value=""><br/> 	
-    <input type="submit" value="Add CPU">
+    CPU location: <input type="text" name="location" value=${cpu.location}><br />
+	serial number: <input type="text" name="serialnumber" value=${cpu.serialnumber}><br/>
+	label: <input type="text" name="label" value=${cpu.label}><br/> 	
+    <input type="submit" value="Edit CPU">
 </form>

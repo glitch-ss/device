@@ -43,7 +43,8 @@ public class CPUDAO {
 	}
 	
 	public void add(CPU cpu) {
-		String sql = "insert into CPUCategory value(null, ?, ?, ?, ?)";
+		String sql = "insert into CPU value(null, ?, ?, ?, ?)";
+
 		try(Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql);){
 			ps.setInt(1, cpu.categoryId);
 			ps.setString(2, cpu.location);

@@ -1,11 +1,7 @@
 package pojo;
 
-public class CPUdetail {
-	public int id;
-	public int categoryId;
-	public String location;
-	public String serialnumber;
-	public String label;
+public class CPUdetail extends CPU{
+
 	public String name;
 	public int cores;
 	public String nickname;
@@ -15,36 +11,6 @@ public class CPUdetail {
 	public String sspec;
 	public String category;
 
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
-	public int getCategoryId() {
-		return categoryId;
-	}
-	public void setCategoryId(int categoryId) {
-		this.categoryId = categoryId;
-	}
-	public String getLocation() {
-		return location;
-	}
-	public void setLocation(String location) {
-		this.location = location;
-	}
-	public String getSerialnumber() {
-		return serialnumber;
-	}
-	public void setSerialnumber(String serialnumber) {
-		this.serialnumber = serialnumber;
-	}
-	public String getLabel() {
-		return label;
-	}
-	public void setLabel(String label) {
-		this.label = label;
-	}
 	public String getName() {
 		return name;
 	}
