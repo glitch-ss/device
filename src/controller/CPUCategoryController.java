@@ -16,7 +16,7 @@ import dao.CPUCategoryDAO;
 @Controller
 public class CPUCategoryController {
 	@RequestMapping("/cpucategory")
-	public ModelAndView cpuList(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ModelAndView cpucategory(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ModelAndView mav = new ModelAndView("cpucategory");
 		int start = 0;
 		int count = 5;

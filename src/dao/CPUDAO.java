@@ -22,7 +22,7 @@ public class CPUDAO {
 	}
 	
 	public Connection getConnection() throws SQLException{
-		return DriverManager.getConnection("jdbc:mysql://10.182.92.28:3306/Device?characterEncoding=UTF-8", "raven","Familymart");
+		return DriverManager.getConnection("jdbc:mysql://10.182.92.28:3306/Device?jdbcCompliantTruncation=false&characterEncoding=UTF-8", "raven","Familymart");
 	}
 	
 	public int getTotal() {
@@ -64,7 +64,8 @@ public class CPUDAO {
 	}
 	
 	public void update(CPU cpu) {
-		String sql = "udpate CPU set categoryId = ?, location = ?, serialnumber = ?, label = ? where id = ?";
+		String sql = "update CPU set categoryId=?,location=?,serialnumber=?,label=? where id=?";
+		
 		try (Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql);) {
 			   
 			ps.setInt(1, cpu.categoryId);
@@ -72,8 +73,8 @@ public class CPUDAO {
 			ps.setString(3, cpu.serialnumber);
 			ps.setString(4, cpu.label);
 			ps.setInt(5, cpu.id);
-   
-            ps.execute();
+
+            ps.executeUpdate();
    
         } catch (SQLException e) {
    
@@ -130,7 +131,7 @@ public class CPUDAO {
 	public List<CPU> list(int start, int count){
 		List<CPU> cpus = new ArrayList<CPU>();
 		
-		String sql = "select * from CPU order by id desc limit ?, ?";
+		String sql = "select * from CPU order by id asc limit ?, ?";
 		
 		try(Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql)){
 			ps.setInt(1, start);
@@ -164,7 +165,7 @@ public class CPUDAO {
 	public List<CPUdetail> listDetail(int start, int count){
 		List<CPUdetail> cpus = new ArrayList<CPUdetail>();
 		
-		String sql = "select * from CPU, CPUCategory where CPU.categoryId=CPUCategory.id order by CPU.id desc limit ?, ?";
+		String sql = "select * from CPU, CPUCategory where CPU.categoryId=CPUCategory.id order by CPU.id asc limit ?, ?";
 		
 		try(Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql)){
 			ps.setInt(1, start);

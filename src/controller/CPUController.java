@@ -16,7 +16,42 @@ import pojo.CPUdetail;
 import pojo.CPUCategory;
 
 @Controller
-public class AddCPUController {
+public class CPUController {
+	@RequestMapping("/cpulist")
+	public ModelAndView cpuList(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ModelAndView mav = new ModelAndView("cpulist");
+		int start = 0;
+		int count = 10;
+		
+		try {
+			start = Integer.parseInt(request.getParameter("start"));
+		} catch(NumberFormatException e) {
+			
+		}
+		
+		int next = start + count;
+		int pre = start - count;
+		
+		int total = new CPUDAO().getTotal();
+		
+		int last;
+		if (0 == total % count)
+			last = total - count;
+		else
+			last = total - total % count;
+		pre = pre < 0 ? 0 : pre;
+		next = next > last ? last  : next;
+		mav.addObject("next", next);
+		mav.addObject("pre", pre);
+		mav.addObject("last", last);
+		
+		List<CPUdetail> cpus = new CPUDAO().listDetail(start, count);
+		//request.setAttribute("cpus", cpus);
+		//request.getRequestDispatcher("cpu.jsp").forward(request, response);
+		mav.addObject("cpus", cpus);
+		return mav;
+	}
+	
 	@RequestMapping("/addcpu")
 	public ModelAndView addcpu(CPU cpu) throws Exception {
 		int categoryId = 0;
@@ -64,6 +99,7 @@ public class AddCPUController {
 	        return mav;
 		}
 	}
+	
 	@RequestMapping("/updatecpuaction")
 	public ModelAndView updatecpuaction(CPU cpu) throws Exception {
 		int categoryId = 0;
@@ -79,7 +115,28 @@ public class AddCPUController {
 		} else {
 			System.out.println("add: " + categoryId);
 			CPUDAO cd = new CPUDAO();
+			System.out.println("serial: " + cpu.serialnumber);
 			cd.update(cpu);
+		}
+		ModelAndView mav = new ModelAndView("redirect:/cpulist");
+        return mav;
+	}
+	
+	@RequestMapping("/deletecpu")
+	public ModelAndView deletecpu(int id) throws Exception {
+		int Id = 0;
+		try {
+			Id = id;
+			System.out.println("id: " + Id);
+			
+		} catch(NumberFormatException e) {
+			
+		}
+		if (Id == 0) {
+			System.out.println("delete: " + Id);
+		} else {
+			CPUDAO cd = new CPUDAO();
+			cd.delete(Id);
 		}
 		ModelAndView mav = new ModelAndView("redirect:/cpulist");
         return mav;

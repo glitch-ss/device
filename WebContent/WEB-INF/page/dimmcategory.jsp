@@ -23,40 +23,35 @@ $(function(){
     <tr>
         <td>id</td>
         <td>name</td>
-        <td>location</td>
-        <td>serialnumber</td>
-        <td>cores</td>
         <td>nickname</td>
+        <td>size</td>
         <td>brand</td>
+        <td>speed</td>
         <td>platform</td>
-        <td>frequency</td>
-        <td>label</td>
+        <td>partnumber</td>
+        <td>type</td>
+        <td>rank</td>
         <td>edit</td>
         <td>delete</td>
     </tr>
-    <c:forEach items="${cpus}" var="cpu" varStatus="st">
+    <c:forEach items="${dimms}" var="dimm" varStatus="st">
         <tr>
-            <td>${cpu.id}</td>
-            <td>${cpu.name}</td>
-			<td>${cpu.location}</td>
-            <td>${cpu.serialnumber}</td>
-            <td>${cpu.cores}</td>
-            <td>${cpu.nickname}</td>
-            <td>${cpu.brand}</td>
-            <td>${cpu.platform}</td>
-            <td>${cpu.frequency}</td>
-            <td>${cpu.label}</td>
-            <td><a href="editcpu?id=${cpu.id}">编辑</a></td>
-            <td><a href="deletecpu?id=${cpu.id}">删除</a></td>
+            <td>${dimm.id}</td>
+            <td>${dimm.name}</td>
+            <td>${dimm.nickname}</td>
+            <td>${dimm.size}</td>
+            <td>${dimm.brand}</td>
+            <td>${dimm.speed}</td>
+            <td>${dimm.platform}</td>
+            <td>${dimm.partnumber}</td>
+            <td>${dimm.type}</td>
+            <td>${dimm.rank}</td>
+            <td><a href="editDimm?id=${dimm.id}">编辑</a></td>
+            <td><a href="deleteDimm?id=${dimm.id}">删除</a></td>
         </tr>
     </c:forEach>
  
 </table>
-<nav>
-<ul class="pager">
-<li><a href="addcpu">Add</a></li>
-</ul>
-</nav>
 <nav>
   <ul class="pager">
 
