@@ -41,7 +41,7 @@ public class UserDAO {
 	}
 	
 	public void add(User user) {
-		String sql = "insert into User value(null, ?, ?, ?)";
+		String sql = "insert into User value(null, ?, ?, ?, 'user', null)";
 
 		try(Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql);){
 			ps.setString(1, user.name);
@@ -61,14 +61,16 @@ public class UserDAO {
 	}
 	
 	public void update(User user) {
-		String sql = "update User set name=?,email=?,password=? where id=?";
+		String sql = "update User set name=?,email=?,password=?, privilege=?, loginkey=? where id=?";
 		
 		try (Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql);) {
 			   
 			ps.setString(1, user.name);
 			ps.setString(2, user.email);
 			ps.setString(3, user.password);
-			ps.setInt(5, user.id);
+			ps.setInt(6, user.id);
+			ps.setString(4, user.privilege);
+			ps.setString(5,  user.loginkey);
 
             ps.executeUpdate();
    
@@ -105,9 +107,13 @@ public class UserDAO {
                 String name = rs.getString(2);
                 String email = rs.getString(3);
                 String password = rs.getString(4);
+                String privilege = rs.getString(5);
+                String loginkey = rs.getString(6);
                 user.name = name;
                 user.email = email;
                 user.password = password;
+                user.privilege = privilege;
+                user.loginkey = loginkey;
                 user.id = id;
             }
    
@@ -119,7 +125,7 @@ public class UserDAO {
     }
 	
 	public String getPasswordByEmail(String email) {
-		String sql = "select password from User where email=" + email;
+		String sql = "select password from User where email='" + email + "'";
 		String password = null;
 		
 		try (Connection c = getConnection(); Statement s = c.createStatement();) { 
@@ -129,7 +135,6 @@ public class UserDAO {
             if (rs.next()) {
     			password = rs.getString(1);
     		}
-            
             return password;
    
         } catch (SQLException e) {
@@ -159,10 +164,14 @@ public class UserDAO {
 				String name = rs.getString(2);
                 String email = rs.getString(3);
                 String password = rs.getString(4);
+                String privilege = rs.getString(5);
+                String loginkey = rs.getString(6);
                 user.name = name;
                 user.email = email;
                 user.password = password;
                 user.id = id;
+                user.privilege = privilege;
+                user.loginkey = loginkey;
                 users.add(user);
 			}
 		}catch (SQLException e) {

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import dao.UserDAO;
+import pojo.User;
 
 @Controller
 public class LoginController {
@@ -21,27 +22,67 @@ public class LoginController {
 		String passwordInSql = null;
 		
 		try {
-			email = String.valueOf(request.getParameter("email"));
-			password = String.valueOf(request.getParameter("password"));
+			email = request.getParameter("email");
+			password = request.getParameter("password");
 		} catch(NumberFormatException e) {
 			
 		}
 		
 		UserDAO ud = new UserDAO();
-		
 		if (password == null || email == null) {
+			System.out.println("FUCK");
 			return mav;
 		} else {
 			passwordInSql = ud.getPasswordByEmail(email);
-			if (passwordInSql != password) {
-				String message = "Wrong password!!";
-				mav.addObject("message", message);
-				return mav;
-			}else {
+			if (passwordInSql.equals(password)) {
 				String status = "login";
 				session.setAttribute("status", status);
 				ModelAndView newmav = new ModelAndView("redirect:/cpulist");
 		        return newmav;
+			}else {
+				String message = "Wrong password!!";
+				mav.addObject("message", message);
+				return mav;
+			}
+		}
+		
+	}
+	
+	@RequestMapping("/signin")
+	public ModelAndView signin(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception {
+		ModelAndView mav = new ModelAndView("signin");
+		
+		String name = null;
+		String email = null;
+		String password = null;
+		String passwordInSql = null;
+		
+		try {
+			name =request.getParameter("name");
+			email = request.getParameter("email");
+			password = request.getParameter("password");
+		} catch(NumberFormatException e) {
+			
+		}
+		
+		UserDAO ud = new UserDAO();
+		System.out.println("name:" + name);
+		if (password == null || email == null) {
+			return mav;
+		} else {
+			passwordInSql = ud.getPasswordByEmail(email);
+			if (passwordInSql == null) {
+				User user = new User();
+				user.name = name;
+				user.email = email;
+				user.password = password;
+				ud.add(user);
+				ModelAndView newmav = new ModelAndView("redirect:/login");
+				return newmav;
+			}else {
+				String message = "email has been used, please check.";
+				mav.addObject("message", message);
+				return mav;
 			}
 		}
 		
