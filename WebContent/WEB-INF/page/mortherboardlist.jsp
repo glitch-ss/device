@@ -24,39 +24,34 @@ $(function(){
         <td>id</td>
         <td>name</td>
         <td>owner</td>
-        <td>location</td>
         <td>serialnumber</td>
-        <td>cores</td>
-        <td>nickname</td>
-        <td>brand</td>
-        <td>platform</td>
-        <td>frequency</td>
+		<td>partnumber</td>
+		<td>manufacture</td>
+		<td>macaddress</td>
         <td>label</td>
+        <td>macaddress</td>
         <td>edit</td>
         <td>delete</td>
     </tr>
-    <c:forEach items="${cpus}" var="cpu" varStatus="st">
+    <c:forEach items="${mortherboards}" var="mortherboard" varStatus="st">
         <tr>
-            <td>${cpu.id}</td>
-            <td>${cpu.name}</td>
-            <td>${cpu.owner}</td>
-			<td>${cpu.location}</td>
-            <td>${cpu.serialnumber}</td>
-            <td>${cpu.cores}</td>
-            <td>${cpu.nickname}</td>
-            <td>${cpu.brand}</td>
-            <td>${cpu.platform}</td>
-            <td>${cpu.frequency}</td>
-            <td>${cpu.label}</td>
-            <td><a href="editcpu?id=${cpu.id}">编辑</a></td>
-            <td><a href="deletecpu?id=${cpu.id}">删除</a></td>
+            <td>${mortherboard.id}</td>
+            <td>${mortherboard.description}</td>
+            <td>${mortherboard.owner}</td>
+            <td>${mortherboard.serialnumber}</td>
+            <td>${mortherboard.partnumber}</td>
+            <td>${mortherboard.manufacture}</td>
+            <td>${mortherboard.macaddress}</td>
+            <td>${mortherboard.label}</td>
+            <td><a href="editmortherboard?id=${mortherboard.id}">编辑</a></td>
+            <td><a href="deletemortherboard?id=${mortherboard.id}">删除</a></td>
         </tr>
     </c:forEach>
  
 </table>
 <nav>
 <ul class="pager">
-<li><a href="addcpu">Add</a></li>
+<li><a href="addmortherboard">Add</a></li>
 </ul>
 </nav>
 <nav>

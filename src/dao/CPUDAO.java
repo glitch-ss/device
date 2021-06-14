@@ -35,7 +35,6 @@ public class CPUDAO {
 				total = rs.getInt(1);
 			}
 			
-			System.out.println("total:" +total);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -43,13 +42,14 @@ public class CPUDAO {
 	}
 	
 	public void add(CPU cpu) {
-		String sql = "insert into CPU value(null, ?, ?, ?, ?)";
+		String sql = "insert into CPU value(null, ?, ?, ?, ?, ?)";
 
 		try(Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql);){
 			ps.setInt(1, cpu.categoryId);
-			ps.setString(2, cpu.location);
-			ps.setString(3, cpu.serialnumber);
-			ps.setString(4, cpu.label);
+			ps.setString(2, cpu.owner);
+			ps.setString(3, cpu.location);
+			ps.setString(4, cpu.serialnumber);
+			ps.setString(5, cpu.label);
 			
 			ps.execute();
 			
@@ -64,15 +64,16 @@ public class CPUDAO {
 	}
 	
 	public void update(CPU cpu) {
-		String sql = "update CPU set categoryId=?,location=?,serialnumber=?,label=? where id=?";
+		String sql = "update CPU set categoryId=?,owner=?,location=?,serialnumber=?,label=? where id=?";
 		
 		try (Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql);) {
 			   
 			ps.setInt(1, cpu.categoryId);
-			ps.setString(2, cpu.location);
-			ps.setString(3, cpu.serialnumber);
-			ps.setString(4, cpu.label);
-			ps.setInt(5, cpu.id);
+			ps.setString(2, cpu.owner);
+			ps.setString(3, cpu.location);
+			ps.setString(4, cpu.serialnumber);
+			ps.setString(5, cpu.label);
+			ps.setInt(6, cpu.id);
 
             ps.executeUpdate();
    
@@ -107,10 +108,12 @@ public class CPUDAO {
             if (rs.next()) {
                 cpu = new CPU();
                 int categoryId = rs.getInt(2);
-                String location = rs.getString(3);
-                String serialnumber = rs.getString(4);
-                String label = rs.getString(5);
+                String owner = rs.getString(3);
+                String location = rs.getString(4);
+                String serialnumber = rs.getString(5);
+                String label = rs.getString(6);
                 cpu.categoryId = categoryId;
+                cpu.owner = owner;
                 cpu.location = location;
                 cpu.serialnumber = serialnumber;
                 cpu.label = label;
@@ -143,10 +146,12 @@ public class CPUDAO {
 				CPU cpu = new CPU();
 				int id = rs.getInt(1);
 				int categoryId = rs.getInt(2);
-                String location = rs.getString(3);
-                String serialnumber = rs.getString(4);
-                String label = rs.getString(5);
+				String owner = rs.getString(3);
+                String location = rs.getString(4);
+                String serialnumber = rs.getString(5);
+                String label = rs.getString(6);
                 cpu.categoryId = categoryId;
+                cpu.owner = owner;
                 cpu.location = location;
                 cpu.serialnumber = serialnumber;
                 cpu.label = label;
@@ -177,18 +182,20 @@ public class CPUDAO {
 				CPUdetail cpu = new CPUdetail();
 				int id = rs.getInt(1);
 				int categoryId = rs.getInt(2);
-                String location = rs.getString(3);
-                String serialnumber = rs.getString(4);
-                String label = rs.getString(5);
-                String name = rs.getString(7);
-                int cores = rs.getInt(8);
-                String nickname = rs.getString(9);
-                String brand = rs.getString(10);
-                String platform = rs.getString(11);
-                Float frequency = rs.getFloat(12);
-                String sspec = rs.getString(13);
-                String category = rs.getString(14);
+				String owner = rs.getString(3);
+                String location = rs.getString(4);
+                String serialnumber = rs.getString(5);
+                String label = rs.getString(6);
+                String name = rs.getString(8);
+                int cores = rs.getInt(9);
+                String nickname = rs.getString(10);
+                String brand = rs.getString(11);
+                String platform = rs.getString(12);
+                Float frequency = rs.getFloat(13);
+                String sspec = rs.getString(14);
+                String category = rs.getString(15);
                 cpu.categoryId = categoryId;
+                cpu.owner = owner;
                 cpu.location = location;
                 cpu.serialnumber = serialnumber;
                 cpu.label = label;

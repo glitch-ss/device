@@ -26,37 +26,31 @@ $(function(){
         <td>owner</td>
         <td>location</td>
         <td>serialnumber</td>
-        <td>cores</td>
-        <td>nickname</td>
-        <td>brand</td>
-        <td>platform</td>
-        <td>frequency</td>
+		<td>partnumber</td>
+		<td>manufacture</td>
         <td>label</td>
         <td>edit</td>
         <td>delete</td>
     </tr>
-    <c:forEach items="${cpus}" var="cpu" varStatus="st">
+    <c:forEach items="${powersupplys}" var="powersupply" varStatus="st">
         <tr>
-            <td>${cpu.id}</td>
-            <td>${cpu.name}</td>
-            <td>${cpu.owner}</td>
-			<td>${cpu.location}</td>
-            <td>${cpu.serialnumber}</td>
-            <td>${cpu.cores}</td>
-            <td>${cpu.nickname}</td>
-            <td>${cpu.brand}</td>
-            <td>${cpu.platform}</td>
-            <td>${cpu.frequency}</td>
-            <td>${cpu.label}</td>
-            <td><a href="editcpu?id=${cpu.id}">编辑</a></td>
-            <td><a href="deletecpu?id=${cpu.id}">删除</a></td>
+            <td>${powersupply.id}</td>
+            <td>${powersupply.description}</td>
+            <td>${powersupply.owner}</td>
+			<td>${powersupply.location}</td>
+            <td>${powersupply.serialnumber}</td>
+            <td>${powersupply.partnumber}</td>
+            <td>${powersupply.manufacture}</td>
+            <td>${powersupply.label}</td>
+            <td><a href="editpowersupply?id=${powersupply.id}">编辑</a></td>
+            <td><a href="deletepowersupply?id=${powersupply.id}">删除</a></td>
         </tr>
     </c:forEach>
  
 </table>
 <nav>
 <ul class="pager">
-<li><a href="addcpu">Add</a></li>
+<li><a href="addpowersupply">Add</a></li>
 </ul>
 </nav>
 <nav>

@@ -8,18 +8,18 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
   
 
-<form action="adddimm">
+<form action="addpowersupply">
  
-    DIMM name: <select name="categoryId">
+    PS name: <select name="categoryId">
     <option value=""></option>
-    <c:forEach items="${dimms}" var="dimm" varStatus="st">
-    <option value = "${dimm.id}">${dimm.name }</option>
+    <c:forEach items="${powersupplys}" var="powersupply" varStatus="st">
+    <option value = "${powersupply.id}">${powersupply.description }</option>
     </c:forEach>
     </select>
     <br>
-    DIMM owner: <input type="text" name="owner" value=""><br/>
-    DIMM location: <input type="text" name="location" value=""><br />
+    PS owner: <input type="text" name="owner" value=""><br />
+    PS location: <input type="text" name="location" value=""><br />
 	serial number: <input type="text" name="serialnumber" value=""><br/>
 	label: <input type="text" name="label" value=""><br/> 	
-    <input type="submit" value="Add DIMM">
+    <input type="submit" value="Add PowerSupply">
 </form>

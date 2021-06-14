@@ -17,6 +17,7 @@
     </c:forEach>
     </select>
     <br>
+    CPU owner: <input type="text" name="owner" value=""><br />
     CPU location: <input type="text" name="location" value=""><br />
 	serial number: <input type="text" name="serialnumber" value=""><br/>
 	label: <input type="text" name="label" value=""><br/> 	

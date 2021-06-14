@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.UUID;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -35,8 +37,13 @@ public class LoginController {
 		} else {
 			passwordInSql = ud.getPasswordByEmail(email);
 			if (passwordInSql.equals(password)) {
-				String status = "login";
-				session.setAttribute("status", status);
+				User user = ud.get(email);
+				String uuid = String.valueOf(UUID.randomUUID());
+				String loginkey = uuid.substring(0, 8);
+				user.loginkey = loginkey;
+				ud.setLoginKey(user);
+				session.setAttribute("loginkey", loginkey);
+				session.setAttribute("id", user.id);
 				ModelAndView newmav = new ModelAndView("redirect:/cpulist");
 		        return newmav;
 			}else {

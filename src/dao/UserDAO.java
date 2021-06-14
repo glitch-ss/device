@@ -124,6 +124,37 @@ public class UserDAO {
         return user;
     }
 	
+	public User get(String email) {
+		User user = null;
+   
+        try (Connection c = getConnection(); Statement s = c.createStatement();) {
+   
+            String sql = "select * from User where email = '" + email + "'";
+   
+            ResultSet rs = s.executeQuery(sql);
+   
+            if (rs.next()) {
+                user = new User();
+                int id = rs.getInt(1);
+                String name = rs.getString(2);
+                String password = rs.getString(4);
+                String privilege = rs.getString(5);
+                String loginkey = rs.getString(6);
+                user.name = name;
+                user.email = email;
+                user.password = password;
+                user.privilege = privilege;
+                user.loginkey = loginkey;
+                user.id = id;
+            }
+   
+        } catch (SQLException e) {
+   
+            e.printStackTrace();
+        }
+        return user;
+    }
+	
 	public String getPasswordByEmail(String email) {
 		String sql = "select password from User where email='" + email + "'";
 		String password = null;
@@ -140,6 +171,22 @@ public class UserDAO {
         } catch (SQLException e) {
             e.printStackTrace();
             return password;
+        }
+	}
+	
+	public void setLoginKey(User user) {
+		String sql = "update User set loginkey=? where id=?";
+		
+		try (Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql);) {
+			   
+			ps.setString(1, user.loginkey);
+			ps.setInt(2, user.id);
+
+            ps.executeUpdate();
+   
+        } catch (SQLException e) {
+   
+            e.printStackTrace();
         }
 	}
 	

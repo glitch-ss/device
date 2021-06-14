@@ -1,7 +1,7 @@
 package pojo;
 
 public class CPUdetail extends CPU{
-
+	
 	public String name;
 	public int cores;
 	public String nickname;

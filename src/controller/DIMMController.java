@@ -111,7 +111,7 @@ public class DIMMController {
 		if (categoryId == 0) {
 			System.out.println("add: " + categoryId);
 		} else {
-			System.out.println("add: " + categoryId);
+			System.out.println("categoryId: " + categoryId);
 			DIMMDAO cd = new DIMMDAO();
 			System.out.println("serial: " + dimm.serialnumber);
 			cd.update(dimm);

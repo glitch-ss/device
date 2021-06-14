@@ -1,13 +1,13 @@
 package pojo;
 
-public class CPU {
+public class MortherBoard {
 	public int id;
 	public int categoryId;
-	public String owner;
-	public String location;
 	public String serialnumber;
+	public String owner;
 	public String label;
-
+	public String macaddress;
+	
 	public int getId() {
 		return id;
 	}
@@ -15,7 +15,7 @@ public class CPU {
 		this.id = id;
 	}
 	public int getCategoryId() {
-		return categoryId;
+		return id;
 	}
 	public void setCategoryId(int categoryId) {
 		this.categoryId = categoryId;
@@ -26,11 +26,11 @@ public class CPU {
 	public void setOwner(String owner) {
 		this.owner = owner;
 	}
-	public String getLocation() {
-		return location;
+	public String getMacaddress() {
+		return macaddress;
 	}
-	public void setLocation(String location) {
-		this.location = location;
+	public void setMacaddress(String macaddress) {
+		this.macaddress = macaddress;
 	}
 	public String getSerialnumber() {
 		return serialnumber;
@@ -45,3 +45,4 @@ public class CPU {
 		this.label = label;
 	}
 }
+

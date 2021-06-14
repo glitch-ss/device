@@ -16,8 +16,9 @@
     </c:forEach>
     </select>
     <br>
-    CPU location: <input type="text" name="location" value=${cpu.location} /><br />
-	serial number: <input type="text" name="serialnumber" value=${cpu.serialnumber} /><br/>
-	label: <input type="text" name="label" value=${cpu.label} /><br/> 	
+    CPU owner: <input type="text" name="owner" value=${cpu.owner}><br />
+    CPU location: <input type="text" name="location" value=${cpu.location} ><br />
+	serial number: <input type="text" name="serialnumber" value=${cpu.serialnumber}><br/>
+	label: <input type="text" name="label" value=${cpu.label} ><br/> 	
     <input type="submit" value="Edit CPU">
 </form>

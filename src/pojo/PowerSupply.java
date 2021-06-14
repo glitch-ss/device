@@ -1,13 +1,13 @@
 package pojo;
 
-public class CPU {
+public class PowerSupply {
 	public int id;
 	public int categoryId;
+	public String serialnumber;
 	public String owner;
 	public String location;
-	public String serialnumber;
 	public String label;
-
+	
 	public int getId() {
 		return id;
 	}
@@ -15,7 +15,7 @@ public class CPU {
 		this.id = id;
 	}
 	public int getCategoryId() {
-		return categoryId;
+		return id;
 	}
 	public void setCategoryId(int categoryId) {
 		this.categoryId = categoryId;
