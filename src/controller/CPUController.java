@@ -1,12 +1,17 @@
 package controller;
 
 import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import dao.CPUDAO;
@@ -140,5 +145,32 @@ public class CPUController {
 		}
 		ModelAndView mav = new ModelAndView("redirect:/cpulist");
         return mav;
+	}
+
+	@RequestMapping(value="/getcpu", method=RequestMethod.POST)
+	public Map<String, CPUdetail> getcpu(@RequestBody Map<String, String> request) throws Exception {
+		String location = null;
+		String owner = null;
+		String serialnumber = null;
+		CPUDAO cd = new CPUDAO();
+		CPUdetail cpud = new CPUdetail();
+
+		try {
+			owner = request.get("owner");
+			location = request.get("location");
+			serialnumber = request.get("serialnumber");
+		} catch(NumberFormatException e) {
+			
+		}
+		if (location != null && owner != null) {
+			cpud = cd.GetByLocation(owner, location);
+		} else if (serialnumber != null){
+			cpud = cd.GetBySerialnumber(serialnumber);
+		} else {
+			cpud = null;
+		}
+		Map<String, CPUdetail> modelMap = new HashMap<String, CPUdetail>(1);
+		modelMap.put("cpu", cpud);
+		return modelMap;
 	}
 }

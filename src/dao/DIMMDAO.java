@@ -218,4 +218,100 @@ public class DIMMDAO {
 		}
 		return dimms;
 	}
+	
+	public DIMMDetail GetByLocation(String qowner, String qlocation) {
+		String sql = "select * from DIMM, DIMMCategory where DIMM.categoryId=DIMMCategory.id and DIMM.owner=? and DIMM.location=?";
+		DIMMDetail dimm = new DIMMDetail();
+		try(Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql)){
+			ps.setString(1, qowner);
+			ps.setString(2, qlocation);
+			
+			ResultSet rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				
+				int id = rs.getInt(1);
+				int categoryId = rs.getInt(2);
+				String owner = rs.getString(3);
+                String location = rs.getString(4);
+                String serialnumber = rs.getString(5);
+                String label = rs.getString(6);
+                String name = rs.getString(8);
+                String nickname = rs.getString(9);
+                int size = rs.getInt(10);
+                String brand = rs.getString(11);
+                int speed = rs.getInt(12);
+                String platform = rs.getString(13);
+                String partnumber = rs.getString(14);
+                String type = rs.getString(15);
+                String rank = rs.getString(16);
+                dimm.categoryId = categoryId;
+                dimm.owner = owner;
+                dimm.location = location;
+                dimm.serialnumber = serialnumber;
+                dimm.label = label;
+                dimm.id = id;
+                dimm.name = name;
+                dimm.size = size;
+                dimm.nickname = nickname;
+                dimm.brand = brand;
+                dimm.platform = platform;
+                dimm.speed = speed;
+                dimm.partnumber = partnumber;
+                dimm.type = type;
+                dimm.rank = rank;
+			}
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return dimm;
+	}
+	public DIMMDetail GetBySerialnumber(String qserialnumber) {
+		String sql = "select * from DIMM, DIMMCategory where DIMM.categoryId=DIMMCategory.id and DIMM.serialnumber=?";
+		DIMMDetail dimm = new DIMMDetail();
+		try(Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql)){
+			ps.setString(1, qserialnumber);
+
+			
+			ResultSet rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				
+				int id = rs.getInt(1);
+				int categoryId = rs.getInt(2);
+				String owner = rs.getString(3);
+                String location = rs.getString(4);
+                String serialnumber = rs.getString(5);
+                String label = rs.getString(6);
+                String name = rs.getString(8);
+                String nickname = rs.getString(9);
+                int size = rs.getInt(10);
+                String brand = rs.getString(11);
+                int speed = rs.getInt(12);
+                String platform = rs.getString(13);
+                String partnumber = rs.getString(14);
+                String type = rs.getString(15);
+                String rank = rs.getString(16);
+                dimm.categoryId = categoryId;
+                dimm.owner = owner;
+                dimm.location = location;
+                dimm.serialnumber = serialnumber;
+                dimm.label = label;
+                dimm.id = id;
+                dimm.name = name;
+                dimm.size = size;
+                dimm.nickname = nickname;
+                dimm.brand = brand;
+                dimm.platform = platform;
+                dimm.speed = speed;
+                dimm.partnumber = partnumber;
+                dimm.type = type;
+                dimm.rank = rank;
+			}
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return dimm;
+	}
+	
 }

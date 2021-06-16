@@ -215,4 +215,95 @@ public class CPUDAO {
 		}
 		return cpus;
 	}
+	
+	public CPUdetail GetByLocation(String qowner, String qlocation) {
+		String sql = "select * from CPU, CPUCategory where CPU.categoryId=CPUCategory.id and CPU.owner=? and CPU.location=?";
+		CPUdetail cpu = new CPUdetail();
+		try(Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql)){
+			ps.setString(1, qowner);
+			ps.setString(2, qlocation);
+			
+			ResultSet rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				
+				int id = rs.getInt(1);
+				int categoryId = rs.getInt(2);
+				String owner = rs.getString(3);
+                String location = rs.getString(4);
+                String serialnumber = rs.getString(5);
+                String label = rs.getString(6);
+                String name = rs.getString(8);
+                int cores = rs.getInt(9);
+                String nickname = rs.getString(10);
+                String brand = rs.getString(11);
+                String platform = rs.getString(12);
+                Float frequency = rs.getFloat(13);
+                String sspec = rs.getString(14);
+                String category = rs.getString(15);
+                cpu.categoryId = categoryId;
+                cpu.owner = owner;
+                cpu.location = location;
+                cpu.serialnumber = serialnumber;
+                cpu.label = label;
+                cpu.id = id;
+                cpu.name = name;
+                cpu.cores = cores;
+                cpu.nickname = nickname;
+                cpu.brand = brand;
+                cpu.platform = platform;
+                cpu.frequency = frequency;
+                cpu.sspec = sspec;
+                cpu.category = category;
+			}
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return cpu;
+	}
+	
+	public CPUdetail GetBySerialnumber(String qserialnumber) {
+		String sql = "select * from CPU, CPUCategory where CPU.categoryId=CPUCategory.id and CPU.serialnumber=?";
+		CPUdetail cpu = new CPUdetail();
+		try(Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql)){
+			ps.setString(1, qserialnumber);
+			
+			ResultSet rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				
+				int id = rs.getInt(1);
+				int categoryId = rs.getInt(2);
+				String owner = rs.getString(3);
+                String location = rs.getString(4);
+                String serialnumber = rs.getString(5);
+                String label = rs.getString(6);
+                String name = rs.getString(8);
+                int cores = rs.getInt(9);
+                String nickname = rs.getString(10);
+                String brand = rs.getString(11);
+                String platform = rs.getString(12);
+                Float frequency = rs.getFloat(13);
+                String sspec = rs.getString(14);
+                String category = rs.getString(15);
+                cpu.categoryId = categoryId;
+                cpu.owner = owner;
+                cpu.location = location;
+                cpu.serialnumber = serialnumber;
+                cpu.label = label;
+                cpu.id = id;
+                cpu.name = name;
+                cpu.cores = cores;
+                cpu.nickname = nickname;
+                cpu.brand = brand;
+                cpu.platform = platform;
+                cpu.frequency = frequency;
+                cpu.sspec = sspec;
+                cpu.category = category;
+			}
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return cpu;
+	}
 }

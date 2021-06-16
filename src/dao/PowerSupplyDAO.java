@@ -205,4 +205,79 @@ public class PowerSupplyDAO {
 		}
 		return psds;
 	}
+	
+	public PowerSupplyDetail GetByLocation(String qowner, String qlocation){
+		
+		String sql = "select * from PowerSupply, PowerSupplyCategory where PowerSupply.categoryId=PowerSupplyCategory.id and PowerSupply.owner=? and PowerSupply.location=?";
+		PowerSupplyDetail psd = new PowerSupplyDetail();
+		
+		try(Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql)){
+			ps.setString(1, qowner);
+			ps.setString(2, qlocation);
+			
+			ResultSet rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				
+				int id = rs.getInt(1);
+				int categoryId = rs.getInt(2);
+				String serialnumber = rs.getString(3);
+				String owner = rs.getString(4);
+                String location = rs.getString(5);
+                String label = rs.getString(6);
+                String description = rs.getString(8);
+                String partnumber = rs.getString(9);
+                String manufacture = rs.getString(10);
+                psd.categoryId = categoryId;
+                psd.owner = owner;
+                psd.location = location;
+                psd.serialnumber = serialnumber;
+                psd.label = label;
+                psd.id = id;
+                psd.description = description;
+                psd.partnumber = partnumber;
+                psd.manufacture = manufacture;
+			}
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return psd;
+	}
+	
+public PowerSupplyDetail GetBySerialnumber(String qserialnumber){
+		
+		String sql = "select * from PowerSupply, PowerSupplyCategory where PowerSupply.categoryId=PowerSupplyCategory.id and PowerSupply.serialnumber=?";
+		PowerSupplyDetail psd = new PowerSupplyDetail();
+		
+		try(Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql)){
+			ps.setString(1, qserialnumber);
+			
+			ResultSet rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				
+				int id = rs.getInt(1);
+				int categoryId = rs.getInt(2);
+				String serialnumber = rs.getString(3);
+				String owner = rs.getString(4);
+                String location = rs.getString(5);
+                String label = rs.getString(6);
+                String description = rs.getString(8);
+                String partnumber = rs.getString(9);
+                String manufacture = rs.getString(10);
+                psd.categoryId = categoryId;
+                psd.owner = owner;
+                psd.location = location;
+                psd.serialnumber = serialnumber;
+                psd.label = label;
+                psd.id = id;
+                psd.description = description;
+                psd.partnumber = partnumber;
+                psd.manufacture = manufacture;
+			}
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return psd;
+	}
 }

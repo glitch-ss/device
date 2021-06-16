@@ -205,4 +205,80 @@ public class MortherBoardDAO {
 		}
 		return mbds;
 	}
+	
+	public MortherBoardDetail GetByLocation(String qowner){
+
+		String sql = "select * from MortherBoard, MortherBoardCategory where MortherBoard.categoryId=MortherBoardCategory.id and MortherBoard.owner=?";
+		MortherBoardDetail mbd = new MortherBoardDetail();
+		
+		try(Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql)){
+			ps.setString(1, qowner);
+
+			
+			ResultSet rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				
+				int id = rs.getInt(1);
+				int categoryId = rs.getInt(2);
+				String serialnumber = rs.getString(3);
+				String owner = rs.getString(4);
+                String label = rs.getString(5);
+                String macaddress = rs.getString(6);
+                String description = rs.getString(8);
+                String partnumber = rs.getString(9);
+                String manufacture = rs.getString(10);
+                mbd.categoryId = categoryId;
+                mbd.owner = owner;
+                mbd.macaddress = macaddress;
+                mbd.serialnumber = serialnumber;
+                mbd.label = label;
+                mbd.id = id;
+                mbd.description = description;
+                mbd.partnumber = partnumber;
+                mbd.manufacture = manufacture;
+			}
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return mbd;
+	}
+	
+	public MortherBoardDetail GetBySerialnumber(String qserialnumber){
+
+		String sql = "select * from MortherBoard, MortherBoardCategory where MortherBoard.categoryId=MortherBoardCategory.id and MortherBoard.serialnumber=?";
+		MortherBoardDetail mbd = new MortherBoardDetail();
+		
+		try(Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql)){
+			ps.setString(1, qserialnumber);
+
+			
+			ResultSet rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				
+				int id = rs.getInt(1);
+				int categoryId = rs.getInt(2);
+				String serialnumber = rs.getString(3);
+				String owner = rs.getString(4);
+                String label = rs.getString(5);
+                String macaddress = rs.getString(6);
+                String description = rs.getString(8);
+                String partnumber = rs.getString(9);
+                String manufacture = rs.getString(10);
+                mbd.categoryId = categoryId;
+                mbd.owner = owner;
+                mbd.macaddress = macaddress;
+                mbd.serialnumber = serialnumber;
+                mbd.label = label;
+                mbd.id = id;
+                mbd.description = description;
+                mbd.partnumber = partnumber;
+                mbd.manufacture = manufacture;
+			}
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return mbd;
+	}
 }
