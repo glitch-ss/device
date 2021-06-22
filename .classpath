@@ -15,6 +15,9 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jstl.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jta-1.1.jar"/>
-	<classpathentry kind="lib" path="C:/D/practice/java/tomcat7-8080-eclipse/lib/servlet-api.jar"/>
+	<classpathentry kind="lib" path="F:/File/Practice/java/tomcat7-8080-eclipse/lib/servlet-api.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jackson-annotations-2.9.9.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jackson-core-2.9.9.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jackson-databind-2.9.9.3.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

@@ -1,12 +1,17 @@
 package controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import dao.DIMMDAO;
@@ -139,4 +144,42 @@ public class DIMMController {
 		ModelAndView mav = new ModelAndView("redirect:/dimmlist");
         return mav;
 	}
+	
+	@RequestMapping(value="/getdimm", method=RequestMethod.POST, consumes = "application/json")
+	@ResponseBody
+	public Map<String, DIMMDetail> getcpu(@RequestBody String req) throws Exception {
+		String location = null;
+		String owner = null;
+		String serialnumber = null;
+		DIMMDAO dd = new DIMMDAO();
+		DIMMDetail dimmd = new DIMMDetail();
+		for(String va: req.split("&")) {
+			String val[] = va.split("=");
+			switch(val[0]) {
+			case "owner":
+				owner = val[1];
+				break;
+			case "location":
+				location = val[1];
+				break;
+			case "serialnumber":
+				serialnumber = val[1];
+				break;
+			default:
+				System.out.println("value: " + val[0]);
+			}
+		}
+		if (location != null && owner != null) {
+			dimmd = dd.GetByLocation(owner, location);
+		} else if (serialnumber != null){
+			dimmd = dd.GetBySerialnumber(serialnumber);
+		} else {
+			dimmd = null;
+		}
+		Map<String, DIMMDetail> modelMap = new HashMap<String, DIMMDetail>(1);
+	    
+		modelMap.put("dimm", dimmd);
+		return modelMap;
+	}
+	
 }

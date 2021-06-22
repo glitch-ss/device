@@ -9,6 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import pojo.CPUdetail;
 import pojo.DIMM;
 import pojo.DIMMDetail;
 
@@ -229,7 +230,6 @@ public class DIMMDAO {
 			ResultSet rs = ps.executeQuery();
 			
 			while(rs.next()) {
-				
 				int id = rs.getInt(1);
 				int categoryId = rs.getInt(2);
 				String owner = rs.getString(3);
@@ -266,17 +266,16 @@ public class DIMMDAO {
 		}
 		return dimm;
 	}
+	
 	public DIMMDetail GetBySerialnumber(String qserialnumber) {
 		String sql = "select * from DIMM, DIMMCategory where DIMM.categoryId=DIMMCategory.id and DIMM.serialnumber=?";
 		DIMMDetail dimm = new DIMMDetail();
 		try(Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql)){
 			ps.setString(1, qserialnumber);
-
 			
 			ResultSet rs = ps.executeQuery();
 			
 			while(rs.next()) {
-				
 				int id = rs.getInt(1);
 				int categoryId = rs.getInt(2);
 				String owner = rs.getString(3);

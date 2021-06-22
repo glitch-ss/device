@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
 
+//import net.sf.json.JSONObject;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RequestBody;
+//import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import dao.CPUDAO;
@@ -19,6 +22,8 @@ import dao.CPUCategoryDAO;
 import pojo.CPU;
 import pojo.CPUdetail;
 import pojo.CPUCategory;
+
+//import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 public class CPUController {
@@ -147,20 +152,29 @@ public class CPUController {
         return mav;
 	}
 
-	@RequestMapping(value="/getcpu", method=RequestMethod.POST)
-	public Map<String, CPUdetail> getcpu(@RequestBody Map<String, String> request) throws Exception {
+	@RequestMapping(value="/getcpu", method=RequestMethod.POST, consumes = "application/json")
+	@ResponseBody
+	public Map<String, CPUdetail> getcpu(@RequestBody String req) throws Exception {
 		String location = null;
 		String owner = null;
 		String serialnumber = null;
 		CPUDAO cd = new CPUDAO();
 		CPUdetail cpud = new CPUdetail();
-
-		try {
-			owner = request.get("owner");
-			location = request.get("location");
-			serialnumber = request.get("serialnumber");
-		} catch(NumberFormatException e) {
-			
+		for(String va: req.split("&")) {
+			String val[] = va.split("=");
+			switch(val[0]) {
+			case "owner":
+				owner = val[1];
+				break;
+			case "location":
+				location = val[1];
+				break;
+			case "serialnumber":
+				serialnumber = val[1];
+				break;
+			default:
+				System.out.println("value: " + val[0]);
+			}
 		}
 		if (location != null && owner != null) {
 			cpud = cd.GetByLocation(owner, location);
@@ -170,6 +184,7 @@ public class CPUController {
 			cpud = null;
 		}
 		Map<String, CPUdetail> modelMap = new HashMap<String, CPUdetail>(1);
+	    
 		modelMap.put("cpu", cpud);
 		return modelMap;
 	}

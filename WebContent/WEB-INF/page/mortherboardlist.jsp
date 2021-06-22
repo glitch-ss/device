@@ -29,7 +29,6 @@ $(function(){
 		<td>manufacture</td>
 		<td>macaddress</td>
         <td>label</td>
-        <td>macaddress</td>
         <td>edit</td>
         <td>delete</td>
     </tr>

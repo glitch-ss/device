@@ -1,11 +1,17 @@
 package controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import dao.MortherBoardCategoryDAO;
@@ -14,6 +20,8 @@ import pojo.MortherBoard;
 import pojo.MortherBoardCategory;
 import pojo.MortherBoardDetail;
 
+
+@Controller
 public class MortherBoardController {
 	@RequestMapping("/mortherboardlist")
 	public ModelAndView mortherboardList(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -136,5 +144,38 @@ public class MortherBoardController {
 		}
 		ModelAndView mav = new ModelAndView("redirect:/mortherboardlist");
         return mav;
+	}
+	
+	@RequestMapping(value="/getMB", method=RequestMethod.POST, consumes = "application/json")
+	@ResponseBody
+	public Map<String, MortherBoardDetail> getmb(@RequestBody String req) throws Exception {
+		String owner = null;
+		String serialnumber = null;
+		MortherBoardDAO md = new MortherBoardDAO();
+		MortherBoardDetail mbd = new MortherBoardDetail();
+		for(String va: req.split("&")) {
+			String val[] = va.split("=");
+			switch(val[0]) {
+			case "owner":
+				owner = val[1];
+				break;
+			case "serialnumber":
+				serialnumber = val[1];
+				break;
+			default:
+				System.out.println("value: " + val[0]);
+			}
+		}
+		if (owner != null) {
+			mbd = md.GetByLocation(owner);
+		} else if (serialnumber != null){
+			mbd = md.GetBySerialnumber(serialnumber);
+		} else {
+			mbd = null;	
+		}
+		Map<String, MortherBoardDetail> modelMap = new HashMap<String, MortherBoardDetail>(1);
+	    
+		modelMap.put("mb", mbd);
+		return modelMap;
 	}
 }

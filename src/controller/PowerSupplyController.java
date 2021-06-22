@@ -1,13 +1,19 @@
 package controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
 
 import dao.PowerSupplyCategoryDAO;
 import dao.PowerSupplyDAO;
@@ -138,5 +144,42 @@ public class PowerSupplyController {
 		}
 		ModelAndView mav = new ModelAndView("redirect:/powersupplylist");
         return mav;
+	}
+	
+	@RequestMapping(value="/getPS", method=RequestMethod.POST, consumes = "application/json")
+	@ResponseBody
+	public Map<String, PowerSupplyDetail> getps(@RequestBody String req) throws Exception {
+		String location = null;
+		String owner = null;
+		String serialnumber = null;
+		PowerSupplyDAO dd = new PowerSupplyDAO();
+		PowerSupplyDetail psd = new PowerSupplyDetail();
+		for(String va: req.split("&")) {
+			String val[] = va.split("=");
+			switch(val[0]) {
+			case "owner":
+				owner = val[1];
+				break;
+			case "location":
+				location = val[1];
+				break;
+			case "serialnumber":
+				serialnumber = val[1];
+				break;
+			default:
+				System.out.println("value: " + val[0]);
+			}
+		}
+		if (location != null && owner != null) {
+			psd = dd.GetByLocation(owner, location);
+		} else if (serialnumber != null){
+			psd = dd.GetBySerialnumber(serialnumber);
+		} else {
+			psd = null;
+		}
+		Map<String, PowerSupplyDetail> modelMap = new HashMap<String, PowerSupplyDetail>(1);
+	    
+		modelMap.put("ps", psd);
+		return modelMap;
 	}
 }
