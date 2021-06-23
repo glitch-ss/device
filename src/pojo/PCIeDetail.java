@@ -1,7 +1,6 @@
 package pojo;
 
-public class PCIeCategory {
-	public int id;
+public class PCIeDetail extends PCIe{
 	public String nickname;
 	public String devicecategory;
 	public String description;
@@ -16,12 +15,6 @@ public class PCIeCategory {
 	public String subdeviceid;
 	public String kernelmodule;
 	
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
 	public String getDescription() {
 		return description;
 	}

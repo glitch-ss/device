@@ -42,14 +42,21 @@ public class PCIeCategoryDAO {
 	}
 	
 	public void add(PCIeCategory pcic) {
-		String sql = "insert into PCIeCategory value(null, ?, ?, ?, ?, ?, ?)";
+		String sql = "insert into PCIeCategory value(null, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		try(Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql);){
 			ps.setString(1, pcic.nickname);
 			ps.setString(2, pcic.devicecategory);
 			ps.setString(3, pcic.description);
 			ps.setString(4, pcic.partnumber);
-			ps.setString(5, pcic.subsystem);
-			ps.setString(6, pcic.productname);
+			ps.setString(5, pcic.partnumberext);
+			ps.setString(6, pcic.subsystem);
+			ps.setString(7, pcic.productname);
+			ps.setInt(8,  pcic.width);
+			ps.setString(9, pcic.vendorid);
+			ps.setString(10, pcic.deviceid);
+			ps.setString(11, pcic.subvendorid);
+			ps.setString(12, pcic.subdeviceid);
+			ps.setString(13, pcic.kernelmodule);
 			
 			ps.execute();
 			
@@ -64,17 +71,24 @@ public class PCIeCategoryDAO {
 	}
 	
 	public void update(PCIeCategory pcic) {
-		String sql = "udpate PCIeCategory set nickname = ?, devicecategory = ?, description = ?, partnumber=?, subsystem=?, productname=? where id = ?";
+		String sql = "udpate PCIeCategory set nickname = ?, devicecategory = ?, description = ?, partnumber=?, partnumber_ext=?, subsystem=?, productname=?, width=?, vendor_id=?, device_id=?, subvendor_id=?, subdevice_id=?, kernel_module=? where id = ?";
 		try (Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql);) {
 			   
 			ps.setString(1, pcic.nickname);
 			ps.setString(2, pcic.devicecategory);
 			ps.setString(3, pcic.description);
 			ps.setString(4, pcic.partnumber);
-			ps.setString(5, pcic.subsystem);
-			ps.setString(6, pcic.productname);
+			ps.setString(5, pcic.partnumberext);
+			ps.setString(6, pcic.subsystem);
+			ps.setString(7, pcic.productname);
+			ps.setInt(8, pcic.width);
+			ps.setString(9, pcic.vendorid);
+			ps.setString(10, pcic.deviceid);
+			ps.setString(11, pcic.subvendorid);
+			ps.setString(12, pcic.subdeviceid);
+			ps.setString(13, pcic.kernelmodule);
 
-			ps.setInt(7, pcic.id);
+			ps.setInt(14, pcic.id);
    
             ps.execute();
    
@@ -112,15 +126,29 @@ public class PCIeCategoryDAO {
                 String devicecategory = rs.getString(3);
                 String description = rs.getString(4);
                 String partnumber = rs.getString(5);
-                String subsystem = rs.getString(6);
-                String productname = rs.getString(7);
+                String partnumberext = rs.getString(6);
+                String subsystem = rs.getString(7);
+                String productname = rs.getString(8);
+                int width = rs.getInt(9);
+                String vendorid = rs.getString(10);
+                String deviceid = rs.getString(11);
+                String subvendorid = rs.getString(12);
+                String subdeviceid = rs.getString(13);
+                String kernelmodule = rs.getString(14);
                 
                 pcic.nickname = nickname;
                 pcic.devicecategory = devicecategory;
                 pcic.description = description;
                 pcic.partnumber = partnumber;
+                pcic.partnumberext = partnumberext;
                 pcic.subsystem = subsystem;
                 pcic.productname = productname;
+                pcic.width = width;
+                pcic.vendorid = vendorid;
+                pcic.deviceid = deviceid;
+                pcic.subvendorid = subvendorid;
+                pcic.subdeviceid = subdeviceid;
+                pcic.kernelmodule = kernelmodule;
                 pcic.id = id;
             }
    
@@ -153,15 +181,29 @@ public class PCIeCategoryDAO {
                 String devicecategory = rs.getString(3);
                 String description = rs.getString(4);
                 String partnumber = rs.getString(5);
-                String subsystem = rs.getString(6);
-                String productname = rs.getString(7);
+                String partnumberext = rs.getString(6);
+                String subsystem = rs.getString(7);
+                String productname = rs.getString(8);
+                int width = rs.getInt(9);
+                String vendorid = rs.getString(10);
+                String deviceid = rs.getString(11);
+                String subvendorid = rs.getString(12);
+                String subdeviceid = rs.getString(13);
+                String kernelmodule = rs.getString(14);
                 
                 pcic.nickname = nickname;
                 pcic.devicecategory = devicecategory;
                 pcic.description = description;
                 pcic.partnumber = partnumber;
+                pcic.partnumberext = partnumberext;
                 pcic.subsystem = subsystem;
                 pcic.productname = productname;
+                pcic.width = width;
+                pcic.vendorid = vendorid;
+                pcic.deviceid = deviceid;
+                pcic.subvendorid = subvendorid;
+                pcic.subdeviceid = subdeviceid;
+                pcic.kernelmodule = kernelmodule;
                 pcic.id = id;
                 pcis.add(pcic);
 			}
