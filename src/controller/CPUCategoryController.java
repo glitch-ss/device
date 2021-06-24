@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,9 +15,9 @@ import dao.CPUCategoryDAO;
 
 @Controller
 public class CPUCategoryController {
-	@RequestMapping("/cpucategory")
+	@RequestMapping("/cpucategorylist")
 	public ModelAndView cpucategory(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		ModelAndView mav = new ModelAndView("cpucategory");
+		ModelAndView mav = new ModelAndView("cpucategorylist");
 		int start = 0;
 		int count = 5;
 		
@@ -44,9 +44,90 @@ public class CPUCategoryController {
 		mav.addObject("last", last);
 		
 		List<CPUCategory> cpus = new CPUCategoryDAO().list(start, count);
-		//request.setAttribute("cpus", cpus);
-		//request.getRequestDispatcher("cpu.jsp").forward(request, response);
 		mav.addObject("cpus", cpus);
 		return mav;
+	}
+	
+	@RequestMapping("/addcpucategory")
+	public ModelAndView addcpucategory(CPUCategory cpu) throws Exception {
+		int id = 0;
+		try {
+			id = cpu.id;
+			System.out.println("id: " + id);
+			
+		} catch(NumberFormatException e) {
+			
+		}
+		if (id == 0) {
+			ModelAndView mav = new ModelAndView("addcpucategory");
+			return mav;
+		} else {
+			CPUCategoryDAO cd = new CPUCategoryDAO();
+			cd.add(cpu);
+			ModelAndView mav = new ModelAndView("redirect:/cpucategorylist");
+	        return mav;
+		}
+	}
+	@RequestMapping("/editcpucategory")
+	public ModelAndView editcpucategory(int id) throws Exception {
+		int Id = 0;
+		try {
+			Id = Integer.valueOf(id);
+			System.out.println("id: " + Id);
+			
+		} catch(NumberFormatException e) {
+			
+		}
+		if (Id == 0) {
+			ModelAndView mav = new ModelAndView("redirect:/cpucategorylist");
+	        return mav;
+		} else {
+			CPUCategoryDAO cd = new CPUCategoryDAO();
+			CPUCategory cpu = cd.get(Id);
+			ModelAndView mav = new ModelAndView("editcpucategory");
+			mav.addObject("cpu", cpu);
+	        return mav;
+		}
+	}
+	
+	@RequestMapping("/updatecpucategoryaction")
+	public ModelAndView updatecpucategoryaction(CPUCategory cpu) throws Exception {
+		int id = 0;
+		try {
+			id = cpu.id;
+			System.out.println("id: " + id);
+			
+		} catch(NumberFormatException e) {
+			
+		}
+		if (id == 0) {
+			System.out.println("add: " + id);
+		} else {
+			System.out.println("add: " + id);
+			CPUCategoryDAO cd = new CPUCategoryDAO();
+			cd.update(cpu);
+		}
+		ModelAndView mav = new ModelAndView("redirect:/cpucategorylist");
+        return mav;
+	}
+	
+	@RequestMapping("/deletecpucategory")
+	public ModelAndView deletecpucategory(int id) throws Exception {
+		int Id = 0;
+		try {
+			Id = id;
+			System.out.println("id: " + Id);
+			
+		} catch(NumberFormatException e) {
+			
+		}
+		if (Id == 0) {
+			System.out.println("delete: " + Id);
+		} else {
+			CPUCategoryDAO cd = new CPUCategoryDAO();
+			cd.delete(Id);
+		}
+		ModelAndView mav = new ModelAndView("redirect:/cpucategorylist");
+        return mav;
 	}
 }

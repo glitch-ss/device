@@ -15,9 +15,9 @@ import dao.DIMMCategoryDAO;
 
 @Controller
 public class DIMMCategoryController {
-	@RequestMapping("/dimmcategory")
-	public ModelAndView cpucategory(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		ModelAndView mav = new ModelAndView("dimmcategory");
+	@RequestMapping("/dimmcategorylist")
+	public ModelAndView dimmcategory(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ModelAndView mav = new ModelAndView("dimmcategorylist");
 		int start = 0;
 		int count = 5;
 		
@@ -46,5 +46,88 @@ public class DIMMCategoryController {
 		List<DIMMCategory> dimms = new DIMMCategoryDAO().list(start, count);
 		mav.addObject("dimms", dimms);
 		return mav;
+	}
+	
+	@RequestMapping("/adddimmcategory")
+	public ModelAndView adddimmcategory(DIMMCategory dimm) throws Exception {
+		int id = 0;
+		try {
+			id = dimm.id;
+			System.out.println("id: " + id);
+			
+		} catch(NumberFormatException e) {
+			
+		}
+		if (id == 0) {
+			ModelAndView mav = new ModelAndView("adddimmcategory");
+			return mav;
+		} else {
+			DIMMCategoryDAO cd = new DIMMCategoryDAO();
+			cd.add(dimm);
+			ModelAndView mav = new ModelAndView("redirect:/dimmcategorylist");
+	        return mav;
+		}
+	}
+	@RequestMapping("/editdimmcategory")
+	public ModelAndView editdimmcategory(int id) throws Exception {
+		int Id = 0;
+		try {
+			Id = Integer.valueOf(id);
+			System.out.println("id: " + Id);
+			
+		} catch(NumberFormatException e) {
+			
+		}
+		if (Id == 0) {
+			ModelAndView mav = new ModelAndView("redirect:/dimmcategorylist");
+	        return mav;
+		} else {
+			DIMMCategoryDAO cd = new DIMMCategoryDAO();
+			DIMMCategory dimm = cd.get(Id);
+			ModelAndView mav = new ModelAndView("editdimmcategory");
+			mav.addObject("dimm", dimm);
+	        return mav;
+		}
+	}
+	
+	@RequestMapping("/updatedimmcategoryaction")
+	public ModelAndView updatedimmcategoryaction(DIMMCategory dimm) throws Exception {
+		int id = 0;
+		try {
+			id = dimm.id;
+			System.out.println("id: " + id);
+			
+		} catch(NumberFormatException e) {
+			
+		}
+		if (id == 0) {
+			System.out.println("add: " + id);
+		} else {
+			System.out.println("add: " + id);
+			DIMMCategoryDAO cd = new DIMMCategoryDAO();
+			cd.update(dimm);
+		}
+		ModelAndView mav = new ModelAndView("redirect:/dimmcategorylist");
+        return mav;
+	}
+	
+	@RequestMapping("/deletedimmcategory")
+	public ModelAndView deletedimmcategory(int id) throws Exception {
+		int Id = 0;
+		try {
+			Id = id;
+			System.out.println("id: " + Id);
+			
+		} catch(NumberFormatException e) {
+			
+		}
+		if (Id == 0) {
+			System.out.println("delete: " + Id);
+		} else {
+			DIMMCategoryDAO cd = new DIMMCategoryDAO();
+			cd.delete(Id);
+		}
+		ModelAndView mav = new ModelAndView("redirect:/dimmcategorylist");
+        return mav;
 	}
 }
