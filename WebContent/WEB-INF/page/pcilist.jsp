@@ -23,6 +23,10 @@ $(function(){
     <tr>
         <td>id</td>
         <td>nickname</td>
+        <td>serialnumber</td>
+        <td>owner</td>
+        <td>location</td>
+        <td>label</td>
         <td>description</td>
         <td>partnumber</td>
         <td>category</td>
@@ -36,6 +40,10 @@ $(function(){
         <tr>
             <td>${pci.id}</td>
             <td>${pci.nickname}</td>
+            <td>${pci.serialnumber}</td>
+            <td>${pci.owner}</td>
+            <td>${pci.location}</td>
+            <td>${pci.label}</td>
             <td>${pci.description}</td>
 			<td>${pci.partnumber}</td>
             <td>${pci.devicecategory}</td>
