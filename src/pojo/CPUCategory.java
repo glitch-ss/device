@@ -10,6 +10,8 @@ public class CPUCategory {
 	public float frequency;
 	public String sspec;
 	public String category;
+	public float maxHz;
+	public float minHz;
 	public int getId() {
 		return id;
 	}
@@ -63,5 +65,17 @@ public class CPUCategory {
 	}
 	public void setCategory(String category) {
 		this.category = category;
+	}
+	public float getMaxHz() {
+		return maxHz;
+	}
+	public void setMaxHz(float maxHz) {
+		this.maxHz = maxHz;
+	}
+	public float getMinHz() {
+		return minHz;
+	}
+	public void setMinHz(float minHz) {
+		this.minHz = minHz;
 	}
 }

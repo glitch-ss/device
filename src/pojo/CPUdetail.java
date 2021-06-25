@@ -10,6 +10,8 @@ public class CPUdetail extends CPU{
 	public float frequency;
 	public String sspec;
 	public String category;
+	public Float maxHz;
+	public Float minHz;
 
 	public String getName() {
 		return name;
@@ -58,5 +60,17 @@ public class CPUdetail extends CPU{
 	}
 	public void setCategory(String category) {
 		this.category = category;
+	}
+	public float getMaxHz() {
+		return maxHz;
+	}
+	public void setMaxHz(float maxHz) {
+		this.maxHz = maxHz;
+	}
+	public float getMinHz() {
+		return minHz;
+	}
+	public void setMinHz(float minHz) {
+		this.minHz = minHz;
 	}
 }
