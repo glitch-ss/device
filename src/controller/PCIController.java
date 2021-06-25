@@ -20,6 +20,7 @@ import pojo.PCIe;
 import pojo.PCIeCategory;
 import pojo.PCIeDetail;
 
+@Controller
 public class PCIController {
 	@RequestMapping("/pcilist")
 	public ModelAndView cpuList(HttpServletRequest request, HttpServletResponse response) throws Exception {

@@ -7,16 +7,16 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.stereotype.Controller;
+
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+
 import org.springframework.web.servlet.ModelAndView;
 
 import dao.PCIeCategoryDAO;
 import pojo.PCIeCategory;
 
-
+@Controller
 public class PCICategoryController {
 	@RequestMapping("/pcicategorylist")
 	public ModelAndView pcicategoryList(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -53,19 +53,16 @@ public class PCICategoryController {
 	
 	@RequestMapping("/addpcicategory")
 	public ModelAndView addpcicategory(PCIeCategory pci) throws Exception {
-		int id = 0;
 		try {
-			id = pci.id;
-			System.out.println("id: " + id);
+			System.out.println("id: " + pci.nickname);
 			
 		} catch(NumberFormatException e) {
 			
 		}
-		if (id == 0) {
+		if (pci.nickname == null) {
 			ModelAndView mav = new ModelAndView("addpcicategory");
 			return mav;
 		} else {
-			System.out.println("add: " + id);
 			PCIeCategoryDAO pd = new PCIeCategoryDAO();
 			pd.add(pci);
 			ModelAndView mav = new ModelAndView("redirect:/pcicategorylist");

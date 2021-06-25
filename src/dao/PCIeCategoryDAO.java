@@ -27,7 +27,7 @@ public class PCIeCategoryDAO {
 	public int getTotal() {
 		int total = 0;
 		try(Connection c = getConnection(); Statement s = c.createStatement();){
-			String sql = "select count(*) from PCIeCategory";
+			String sql = "select count(*) from PCICategory";
 			
 			ResultSet rs = s.executeQuery(sql);
 			while(rs.next()) {
@@ -42,7 +42,8 @@ public class PCIeCategoryDAO {
 	}
 	
 	public void add(PCIeCategory pcic) {
-		String sql = "insert into PCIeCategory value(null, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String sql = "insert into PCICategory value(null, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		System.out.println("width: " + pcic.width);
 		try(Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql);){
 			ps.setString(1, pcic.nickname);
 			ps.setString(2, pcic.devicecategory);
@@ -71,7 +72,7 @@ public class PCIeCategoryDAO {
 	}
 	
 	public void update(PCIeCategory pcic) {
-		String sql = "udpate PCIeCategory set nickname = ?, devicecategory = ?, description = ?, partnumber=?, partnumber_ext=?, subsystem=?, productname=?, width=?, vendor_id=?, device_id=?, subvendor_id=?, subdevice_id=?, kernel_module=? where id = ?";
+		String sql = "update PCICategory set nickname = ?, devicecategory = ?, description = ?, partnumber=?, partnumber_ext=?, subsystem=?, productname=?, width=?, vendor_id=?, device_id=?, subvendor_id=?, subdevice_id=?, kernel_module=? where id = ?";
 		try (Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql);) {
 			   
 			ps.setString(1, pcic.nickname);
@@ -102,7 +103,7 @@ public class PCIeCategoryDAO {
 		   
         try (Connection c = getConnection(); Statement s = c.createStatement();) {
    
-            String sql = "delete from PCIeCategory where id = " + id;
+            String sql = "delete from PCICategory where id = " + id;
    
             s.execute(sql);
    
@@ -116,7 +117,7 @@ public class PCIeCategoryDAO {
    
         try (Connection c = getConnection(); Statement s = c.createStatement();) {
    
-            String sql = "select * from PCIeCategory where id = " + id;
+            String sql = "select * from PCICategory where id = " + id;
    
             ResultSet rs = s.executeQuery(sql);
    
@@ -166,7 +167,7 @@ public class PCIeCategoryDAO {
 	public List<PCIeCategory> list(int start, int count){
 		List<PCIeCategory> pcis = new ArrayList<PCIeCategory>();
 		
-		String sql = "select * from PCIeCategory order by id asc limit ?, ?";
+		String sql = "select * from PCICategory order by id asc limit ?, ?";
 		
 		try(Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql)){
 			ps.setInt(1, start);
