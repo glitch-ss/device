@@ -17,7 +17,7 @@
 	part number_ext: <input type="text" name="partnumberext" value=""><br/>
 	subsystem: <input type="text" name="subsystem" value=""><br />
 	productname: <input type="text" name="productname" value=""><br/>
-	width: <input type="text" name="width" value=0 placeholder=""><br/>
+	width: <input type="text" name="width" value=0 oninput="value=value.replace(/[^\d]/g,'')"><br/>
 	vendorid: <input type="text" name="vendorid" value=""><br/>
 	deviceid: <input type="text" name="deviceid" value=""><br/>
 	subvendorid: <input type="text" name="subvendorid" value=""><br/>
