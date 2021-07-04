@@ -28,12 +28,15 @@ public class MachineController {
 		} catch(NumberFormatException e) {
 			
 		}
-		File file = new File(machine);
+		machine = "test.txt";
+		String path = ".\\WebContent\\" + machine;
+		File file = new File(path);
 
 		String file1 = FileUtils.readFileToString(file);
+		System.out.println(file1);
 
 		
-		mav.addObject("cpus", cpus);
+		mav.addObject("cpus", "1");
 		return mav;
 	}
 }
