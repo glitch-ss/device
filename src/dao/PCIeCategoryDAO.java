@@ -160,6 +160,54 @@ public class PCIeCategoryDAO {
         return pcic;
     }
 	
+	public PCIeCategory get(String partnumber) {
+		PCIeCategory pcic = null;
+   
+        try (Connection c = getConnection(); Statement s = c.createStatement();) {
+   
+            String sql = "select * from PCICategory where partnumber = " + partnumber;
+   
+            ResultSet rs = s.executeQuery(sql);
+   
+            if (rs.next()) {
+            	pcic = new PCIeCategory();
+            	int id = rs.getInt(1);
+                String nickname = rs.getString(2);
+                String devicecategory = rs.getString(3);
+                String description = rs.getString(4);
+                String partnumberext = rs.getString(6);
+                String subsystem = rs.getString(7);
+                String productname = rs.getString(8);
+                int width = rs.getInt(9);
+                String vendorid = rs.getString(10);
+                String deviceid = rs.getString(11);
+                String subvendorid = rs.getString(12);
+                String subdeviceid = rs.getString(13);
+                String kernelmodule = rs.getString(14);
+                
+                pcic.nickname = nickname;
+                pcic.devicecategory = devicecategory;
+                pcic.description = description;
+                pcic.partnumber = partnumber;
+                pcic.partnumberext = partnumberext;
+                pcic.subsystem = subsystem;
+                pcic.productname = productname;
+                pcic.width = width;
+                pcic.vendorid = vendorid;
+                pcic.deviceid = deviceid;
+                pcic.subvendorid = subvendorid;
+                pcic.subdeviceid = subdeviceid;
+                pcic.kernelmodule = kernelmodule;
+                pcic.id = id;
+            }
+   
+        } catch (SQLException e) {
+   
+            e.printStackTrace();
+        }
+        return pcic;
+    }
+	
 	public List<PCIeCategory> list(){
 		return  list(0, Short.MAX_VALUE);
 	}

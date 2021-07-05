@@ -1,5 +1,6 @@
 package controller;
 import java.util.List;
+import java.util.Map;
 import java.io.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -39,9 +40,14 @@ public class MachineController {
 		File file = new File(path);
 
 		String file1 = FileUtils.readFileToString(file);
-		JSONObject jsonobject = JSON.parseObject(file1);
-		System.out.println(jsonobject);		
-		mav.addObject("machine", jsonobject);
+		JSONObject machineJson = JSON.parseObject(file1);
+		JSONObject pci = machineJson.getJSONObject("pci");
+		for (Map.Entry entry : pci.entrySet()) {
+			String slot = String.valueOf(entry.getKey());
+			JSONObject device =  (JSONObject) JSONObject.toJSON(entry.getValue());
+			
+		}
+		mav.addObject("machine", machineJson);
 		return mav;
 	}
 }
