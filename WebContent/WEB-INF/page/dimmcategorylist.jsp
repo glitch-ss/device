@@ -46,8 +46,8 @@ $(function(){
             <td>${dimm.partnumber}</td>
             <td>${dimm.type}</td>
             <td>${dimm.rank}</td>
-            <td><a href="editDimm?id=${dimm.id}">编辑</a></td>
-            <td><a href="deleteDimm?id=${dimm.id}">删除</a></td>
+            <td><a href="editdimmcategory?id=${dimm.id}">编辑</a></td>
+            <td><a href="editdimmcategory?id=${dimm.id}">删除</a></td>
         </tr>
     </c:forEach>
  

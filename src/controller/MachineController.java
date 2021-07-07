@@ -32,32 +32,37 @@ public class MachineController {
 		} catch(NumberFormatException e) {
 			
 		}
-		machine = "x5-2l-sqa-1";
-		String label = machine.substring(0, 5);
-		String page_file = "machine-" + label;
-		ModelAndView mav = new ModelAndView(page_file);
-		PCIeCategoryDAO pd = new PCIeCategoryDAO();
-		
-		
-		
-		String path = "/QA/SQA/config/machine_config/" + machine;
-		File file = new File(path);
-
-		String file1 = FileUtils.readFileToString(file);
-		JSONObject machineJson = JSON.parseObject(file1);
-		JSONObject pci = machineJson.getJSONObject("pcie");
-		for (Map.Entry entry : pci.entrySet()) {
-			String slot = String.valueOf(entry.getKey());
-			JSONObject device =  (JSONObject) JSONObject.toJSON(entry.getValue());
-			System.out.println("test");
-			System.out.println(device);
-			String partnumber = String.valueOf(device.get("partnumber"));
-			PCIeCategory pciitem = pd.get(partnumber);
-			System.out.println(pciitem);
-			device.put("nickname", pciitem.nickname);
+		//machine = "x5-2l-sqa-1";
+		String path = "/QA/SQA/config/machine_config/";
+		if (machine == null) {
+			File dir = new File(path);
+			String[] fileNames = dir.list();
+			ModelAndView mav = new ModelAndView("machine");
+			mav.addObject("machines", fileNames);
+			return mav;
+		}else {
+			String filepath = path + machine;
+			File file = new File(filepath);
+			String label = machine.substring(0, 5);
+			String page_file = "machine-" + label;
+			ModelAndView mav = new ModelAndView(page_file);
+			PCIeCategoryDAO pd = new PCIeCategoryDAO();
+			String file1 = FileUtils.readFileToString(file);
+			JSONObject machineJson = JSON.parseObject(file1);
+			JSONObject pci = machineJson.getJSONObject("pcie");
+			for (Map.Entry entry : pci.entrySet()) {
+				String slot = String.valueOf(entry.getKey());
+				JSONObject device =  (JSONObject) JSONObject.toJSON(entry.getValue());
+				System.out.println("test");
+				System.out.println(device);
+				String partnumber = String.valueOf(device.get("partnumber"));
+				PCIeCategory pciitem = pd.get(partnumber);
+				System.out.println(pciitem);
+				device.put("nickname", pciitem.nickname);
+			}
+			mav.addObject("name", machine);
+			mav.addObject("machine", machineJson);
+			return mav;
 		}
-		mav.addObject("name", machine);
-		mav.addObject("machine", machineJson);
-		return mav;
 	}
 }
