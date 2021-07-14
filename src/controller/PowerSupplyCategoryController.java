@@ -18,7 +18,7 @@ public class PowerSupplyCategoryController {
 	public ModelAndView pscategorylist(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ModelAndView mav = new ModelAndView("pscategorylist");
 		int start = 0;
-		int count = 5;
+		int count = 10;
 		
 		try {
 			start = Integer.parseInt(request.getParameter("start"));

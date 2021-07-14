@@ -18,7 +18,7 @@ public class MortherBoardCategoryController {
 	public ModelAndView mbcategorylist(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ModelAndView mav = new ModelAndView("mbcategorylist");
 		int start = 0;
-		int count = 5;
+		int count = 10;
 		
 		try {
 			start = Integer.parseInt(request.getParameter("start"));

@@ -18,6 +18,7 @@
 	subsystem: <input type="text" name="subsystem" value="${pci.subsystem}"><br />
 	productname: <input type="text" name="productname" value="${pci.productname}"><br/>
 	width: <input type="text" name="width" value=${pci.width} oninput="value=value.replace(/[^\d]/g,'')"><br/>
+	speed: <input type="text" name="speed" value=${pci.speed}><br/>
 	vendorid: <input type="text" name="vendorid" value=${pci.vendorid}><br/>
 	deviceid: <input type="text" name="deviceid" value=${pci.deviceid}><br/>
 	subvendorid: <input type="text" name="subvendorid" value=${pci.subvendorid}><br/>

@@ -137,6 +137,44 @@ public class CPUCategoryDAO {
         return cpu;
     }
 	
+	public CPUCategory get(String partnumber) {
+        CPUCategory cpu = null;
+   
+        try (Connection c = getConnection(); Statement s = c.createStatement();) {
+   
+            String sql = "select * from CPUCategory where sspec = " + partnumber;
+   
+            ResultSet rs = s.executeQuery(sql);
+   
+            if (rs.next()) {
+                cpu = new CPUCategory();
+                int id = rs.getInt(1);
+                String name = rs.getString(2);
+                int cores = rs.getInt(3);
+                String nickname = rs.getString(4);
+                String brand = rs.getString(5);
+                String platform = rs.getString(6);
+                float frequency = rs.getFloat(7);
+                String sspec = rs.getString(8);
+                String category = rs.getString(9);
+                cpu.name = name;
+                cpu.cores = cores;
+                cpu.nickname = nickname;
+                cpu.brand = brand;
+                cpu.platform = platform;
+                cpu.frequency = frequency;
+                cpu.sspec = sspec;
+                cpu.category = category;
+                cpu.id = id;
+            }
+   
+        } catch (SQLException e) {
+   
+            e.printStackTrace();
+        }
+        return cpu;
+    }
+	
 	public List<CPUCategory> list(){
 		return  list(0, Short.MAX_VALUE);
 	}

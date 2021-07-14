@@ -42,7 +42,7 @@ public class PCIeCategoryDAO {
 	}
 	
 	public void add(PCIeCategory pcic) {
-		String sql = "insert into PCICategory value(null, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String sql = "insert into PCICategory value(null, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		System.out.println("width: " + pcic.width);
 		try(Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql);){
 			ps.setString(1, pcic.nickname);
@@ -58,6 +58,7 @@ public class PCIeCategoryDAO {
 			ps.setString(11, pcic.subvendorid);
 			ps.setString(12, pcic.subdeviceid);
 			ps.setString(13, pcic.kernelmodule);
+			ps.setString(14, pcic.speed);
 			
 			ps.execute();
 			
@@ -72,7 +73,7 @@ public class PCIeCategoryDAO {
 	}
 	
 	public void update(PCIeCategory pcic) {
-		String sql = "update PCICategory set nickname = ?, devicecategory = ?, description = ?, partnumber=?, partnumber_ext=?, subsystem=?, productname=?, width=?, vendor_id=?, device_id=?, subvendor_id=?, subdevice_id=?, kernel_module=? where id = ?";
+		String sql = "update PCICategory set nickname = ?, devicecategory = ?, description = ?, partnumber=?, partnumber_ext=?, subsystem=?, productname=?, width=?, vendor_id=?, device_id=?, subvendor_id=?, subdevice_id=?, kernel_module=?, speed=? where id = ?";
 		try (Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql);) {
 			   
 			ps.setString(1, pcic.nickname);
@@ -88,8 +89,9 @@ public class PCIeCategoryDAO {
 			ps.setString(11, pcic.subvendorid);
 			ps.setString(12, pcic.subdeviceid);
 			ps.setString(13, pcic.kernelmodule);
+			ps.setString(14, pcic.speed);
 
-			ps.setInt(14, pcic.id);
+			ps.setInt(15, pcic.id);
    
             ps.execute();
    
@@ -136,6 +138,7 @@ public class PCIeCategoryDAO {
                 String subvendorid = rs.getString(12);
                 String subdeviceid = rs.getString(13);
                 String kernelmodule = rs.getString(14);
+                String speed = rs.getString(15);
                 
                 pcic.nickname = nickname;
                 pcic.devicecategory = devicecategory;
@@ -150,6 +153,7 @@ public class PCIeCategoryDAO {
                 pcic.subvendorid = subvendorid;
                 pcic.subdeviceid = subdeviceid;
                 pcic.kernelmodule = kernelmodule;
+                pcic.speed = speed;
                 pcic.id = id;
             }
    
@@ -184,6 +188,7 @@ public class PCIeCategoryDAO {
                 String subvendorid = rs.getString(12);
                 String subdeviceid = rs.getString(13);
                 String kernelmodule = rs.getString(14);
+                String speed = rs.getString(15);
                 
                 pcic.nickname = nickname;
                 pcic.devicecategory = devicecategory;
@@ -198,6 +203,7 @@ public class PCIeCategoryDAO {
                 pcic.subvendorid = subvendorid;
                 pcic.subdeviceid = subdeviceid;
                 pcic.kernelmodule = kernelmodule;
+                pcic.speed = speed;
                 pcic.id = id;
             }
    
@@ -239,6 +245,7 @@ public class PCIeCategoryDAO {
                 String subvendorid = rs.getString(12);
                 String subdeviceid = rs.getString(13);
                 String kernelmodule = rs.getString(14);
+                String speed = rs.getString(15);
                 
                 pcic.nickname = nickname;
                 pcic.devicecategory = devicecategory;
@@ -253,6 +260,7 @@ public class PCIeCategoryDAO {
                 pcic.subvendorid = subvendorid;
                 pcic.subdeviceid = subdeviceid;
                 pcic.kernelmodule = kernelmodule;
+                pcic.speed = speed;
                 pcic.id = id;
                 pcis.add(pcic);
 			}

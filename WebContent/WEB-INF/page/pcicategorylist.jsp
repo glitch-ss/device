@@ -27,6 +27,7 @@ $(function(){
         <td>partnumber</td>
         <td>category</td>
         <td>width</td>
+        <td>speed</td>
         <td>subvendor_id</td>
         <td>subdevice_id</td>
         <td>edit</td>
@@ -40,6 +41,7 @@ $(function(){
 			<td>${pci.partnumber}</td>
             <td>${pci.devicecategory}</td>
             <td>${pci.width}</td>
+            <td>${pci.speed}</td>
             <td>${pci.subvendorid}</td>
             <td>${pci.subdeviceid}</td>
             <td><a href="editpcicategory?id=${pci.id}">编辑</a></td>

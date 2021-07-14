@@ -19,7 +19,7 @@ public class DIMMCategoryController {
 	public ModelAndView dimmcategory(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ModelAndView mav = new ModelAndView("dimmcategorylist");
 		int start = 0;
-		int count = 5;
+		int count = 10;
 		
 		try {
 			start = Integer.parseInt(request.getParameter("start"));

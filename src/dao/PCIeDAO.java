@@ -200,6 +200,7 @@ public class PCIeDAO {
                 String subvendorid = rs.getString(18);
                 String subdeviceid = rs.getString(19);
                 String kernelmodule = rs.getString(20);
+                String speed = rs.getString(21);
                 pci.categoryId = categoryId;
                 pci.owner = owner;
                 pci.location = location;
@@ -219,6 +220,7 @@ public class PCIeDAO {
                 pci.subvendorid = subvendorid;
                 pci.subdeviceid = subdeviceid;
                 pci.kernelmodule = kernelmodule;
+                pci.speed = speed;
                 pcis.add(pci);
 			}
 		}catch (SQLException e) {
@@ -256,6 +258,7 @@ public class PCIeDAO {
                 String subvendorid = rs.getString(18);
                 String subdeviceid = rs.getString(19);
                 String kernelmodule = rs.getString(20);
+                String speed = rs.getString(21);
                 pci.categoryId = categoryId;
                 pci.owner = owner;
                 pci.location = location;
@@ -275,6 +278,7 @@ public class PCIeDAO {
                 pci.subvendorid = subvendorid;
                 pci.subdeviceid = subdeviceid;
                 pci.kernelmodule = kernelmodule;
+                pci.speed = speed;
 			}
 		}catch (SQLException e) {
 			e.printStackTrace();
@@ -310,6 +314,7 @@ public class PCIeDAO {
                 String subvendorid = rs.getString(18);
                 String subdeviceid = rs.getString(19);
                 String kernelmodule = rs.getString(20);
+                String speed = rs.getString(21);
                 pci.categoryId = categoryId;
                 pci.owner = owner;
                 pci.location = location;
@@ -329,6 +334,7 @@ public class PCIeDAO {
                 pci.subvendorid = subvendorid;
                 pci.subdeviceid = subdeviceid;
                 pci.kernelmodule = kernelmodule;
+                pci.speed = speed;
 			}
 		}catch (SQLException e) {
 			e.printStackTrace();

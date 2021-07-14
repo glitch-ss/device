@@ -10,6 +10,7 @@ public class PCIeCategory {
 	public String subsystem;
 	public String productname;
 	public int width;
+	public String speed;
 	public String vendorid;
 	public String deviceid;
 	public String subvendorid;
@@ -99,5 +100,11 @@ public class PCIeCategory {
 	}
 	public void setKernelmodule(String kernelmodule) {
 		this.kernelmodule = kernelmodule;
+	}
+	public String getSpeed() {
+		return speed;
+	}
+	public void setSpeed(String speed) {
+		this.speed = speed;
 	}
 }
