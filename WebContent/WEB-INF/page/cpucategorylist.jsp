@@ -42,8 +42,8 @@ $(function(){
             <td>${cpu.platform}</td>
             <td>${cpu.frequency}</td>
             <td>${cpu.category}</td>
-            <td><a href="editcpu?id=${cpu.id}">编辑</a></td>
-            <td><a href="deletecpu?id=${cpu.id}">删除</a></td>
+            <td><a href="editcpucategory?id=${cpu.id}">编辑</a></td>
+            <td><a href="deletecpucategory?id=${cpu.id}">删除</a></td>
         </tr>
     </c:forEach>
  

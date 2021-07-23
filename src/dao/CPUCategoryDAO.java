@@ -1,5 +1,7 @@
 package dao;
 
+
+import java.net.URLDecoder;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -42,7 +44,7 @@ public class CPUCategoryDAO {
 	}
 	
 	public void add(CPUCategory cpu) {
-		String sql = "insert into CPUCategory value(null, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String sql = "insert into CPUCategory value(null, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		try(Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql);){
 			ps.setString(1, cpu.name);
 			ps.setInt(2, cpu.cores);
@@ -52,6 +54,8 @@ public class CPUCategoryDAO {
 			ps.setFloat(6, cpu.frequency);
 			ps.setString(7, cpu.sspec);
 			ps.setString(8, cpu.category);
+			ps.setFloat(9, cpu.maxHz);
+			ps.setFloat(10, cpu.minHz);
 			
 			ps.execute();
 			
@@ -66,7 +70,7 @@ public class CPUCategoryDAO {
 	}
 	
 	public void update(CPUCategory cpu) {
-		String sql = "udpate CPUCategory set name = ?, cores = ?, nickname = ?, brand = ?, platform = ?, frequency = ?, sspec = ?, category = ? where id = ?";
+		String sql = "udpate CPUCategory set name = ?, cores = ?, nickname = ?, brand = ?, platform = ?, frequency = ?, sspec = ?, category = ?, MaxHz = ?, MinHz = ? where id = ?";
 		try (Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql);) {
 			   
 			ps.setString(1, cpu.name);
@@ -77,6 +81,8 @@ public class CPUCategoryDAO {
 			ps.setFloat(6, cpu.frequency);
 			ps.setString(7, cpu.sspec);
 			ps.setString(8, cpu.category);
+			ps.setFloat(9, cpu.maxHz);
+			ps.setFloat(10, cpu.minHz);
 			ps.setInt(9, cpu.id);
    
             ps.execute();
@@ -119,6 +125,8 @@ public class CPUCategoryDAO {
                 float frequency = rs.getFloat(7);
                 String sspec = rs.getString(8);
                 String category = rs.getString(9);
+                float maxHz = rs.getFloat(10);
+                float minHz = rs.getFloat(11);
                 cpu.name = name;
                 cpu.cores = cores;
                 cpu.nickname = nickname;
@@ -127,6 +135,8 @@ public class CPUCategoryDAO {
                 cpu.frequency = frequency;
                 cpu.sspec = sspec;
                 cpu.category = category;
+                cpu.maxHz = maxHz;
+                cpu.minHz = minHz;
                 cpu.id = id;
             }
    
@@ -137,19 +147,28 @@ public class CPUCategoryDAO {
         return cpu;
     }
 	
-	public CPUCategory get(String partnumber) {
+	public CPUCategory get(String partnumber, String name) {
         CPUCategory cpu = null;
-   
-        try (Connection c = getConnection(); Statement s = c.createStatement();) {
-   
-            String sql = "select * from CPUCategory where sspec = " + partnumber;
-   
-            ResultSet rs = s.executeQuery(sql);
+        String sql = "";
+        if (partnumber != null) {
+        	sql = "select * from CPUCategory where sspec=?";
+        }else if(name != null){
+        	sql = "select * from CPUCategory where name=?";
+        }
+        name = URLDecoder.decode(name);
+        System.out.println(name);
+        try (Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+        	if (partnumber != null) {
+            	ps.setString(1, partnumber);
+            }else if(name != null){
+            	ps.setString(1, name);
+            }
+            ResultSet rs = ps.executeQuery();
    
             if (rs.next()) {
                 cpu = new CPUCategory();
                 int id = rs.getInt(1);
-                String name = rs.getString(2);
+                String modelname = rs.getString(2);
                 int cores = rs.getInt(3);
                 String nickname = rs.getString(4);
                 String brand = rs.getString(5);
@@ -157,7 +176,9 @@ public class CPUCategoryDAO {
                 float frequency = rs.getFloat(7);
                 String sspec = rs.getString(8);
                 String category = rs.getString(9);
-                cpu.name = name;
+                float maxHz = rs.getFloat(10);
+                float minHz = rs.getFloat(11);
+                cpu.name = modelname;
                 cpu.cores = cores;
                 cpu.nickname = nickname;
                 cpu.brand = brand;
@@ -165,6 +186,8 @@ public class CPUCategoryDAO {
                 cpu.frequency = frequency;
                 cpu.sspec = sspec;
                 cpu.category = category;
+                cpu.maxHz = maxHz;
+                cpu.minHz = minHz;
                 cpu.id = id;
             }
    
@@ -201,6 +224,8 @@ public class CPUCategoryDAO {
                 float frequency = rs.getFloat(7);
                 String sspec = rs.getString(8);
                 String category = rs.getString(9);
+                float maxHz = rs.getFloat(10);
+                float minHz = rs.getFloat(11);
                 cpu.name = name;
                 cpu.cores = cores;
                 cpu.nickname = nickname;
@@ -210,6 +235,8 @@ public class CPUCategoryDAO {
                 cpu.sspec = sspec;
                 cpu.category = category;
                 cpu.id = id;
+                cpu.maxHz = maxHz;
+                cpu.minHz = minHz;
 				cpus.add(cpu);
 			}
 		}catch (SQLException e) {

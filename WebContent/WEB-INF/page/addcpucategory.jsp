@@ -9,13 +9,14 @@
   
 
 <form action="addcpucategory">
- 
     CPU name: <input type="text" name="name">
     cores: <input type="text" name="cores" value=""><br/>
     nickname: <input type="text" name="nickname" value=""><br />
 	brand: <input type="text" name="brand" value=""><br/>
 	platform: <input type="text" name="platform" value=""><br/>
 	frequency: <input type="text" name="frequency" value=""><br/> 
-	category: <input type="text" name="category" value=""><br/> 
+	category: <input type="text" name="category" value=""><br/>
+	maxHz: <input type="text" name="maxHz" value=""><br/> 
+	minHz: <input type="text" name="minHz" value=""><br/> 
     <input type="submit" value="Add CPU">
 </form>

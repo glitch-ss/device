@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import pojo.CPUCategory;
@@ -54,21 +56,14 @@ public class CPUCategoryController {
 	
 	@RequestMapping("/addcpucategory")
 	public ModelAndView addcpucategory(CPUCategory cpu) throws Exception {
-		int id = 0;
-		try {
-			id = cpu.id;
-			System.out.println("id: " + id);
-			
-		} catch(NumberFormatException e) {
-			
-		}
-		if (id == 0) {
-			ModelAndView mav = new ModelAndView("addcpucategory");
-			return mav;
-		} else {
+		System.out.println(cpu.name);
+		if (cpu.name != null && "".equals(cpu.name)) {
 			CPUCategoryDAO cd = new CPUCategoryDAO();
 			cd.add(cpu);
 			ModelAndView mav = new ModelAndView("redirect:/cpucategorylist");
+	        return mav;
+		}else {
+			ModelAndView mav = new ModelAndView("redirect:/addcpucategory");
 	        return mav;
 		}
 	}
@@ -135,25 +130,30 @@ public class CPUCategoryController {
         return mav;
 	}
 	
-	@RequestMapping("/getcpucategory")
+	@RequestMapping(value="/getcpucategory", method=RequestMethod.POST, consumes = "application/json")
+	@ResponseBody
 	public Map<String, CPUCategory> getcpucategory(@RequestBody String req) throws Exception {
 		String partnumber = null;
-		CPUCategory cpu = new CPUCategory();
+		String name = null;
+		System.out.println(req);
+		CPUCategory cpu = null;
+		CPUCategoryDAO cd = new CPUCategoryDAO();
 		for(String va: req.split("&")) {
 			String val[] = va.split("=");
 			switch(val[0]) {
 			case "partnumber":
 				partnumber = val[1];
 				break;
+			case "name":
+				name = val[1];
+				break;
 			default:
+				
 				System.out.println("value: " + val[0]);
 			}
 		}
-		if (partnumber == null) {
-			cpu = null;
-		}else {
-			CPUCategoryDAO cd = new CPUCategoryDAO();
-			cpu = cd.get(partnumber);
+		if (partnumber != null || name != null) {
+			cpu = cd.get(partnumber=partnumber, name=name);
 		}
 		Map<String, CPUCategory> modelMap = new HashMap<String, CPUCategory>(1);
 	    

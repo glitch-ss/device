@@ -194,6 +194,8 @@ public class CPUDAO {
                 Float frequency = rs.getFloat(13);
                 String sspec = rs.getString(14);
                 String category = rs.getString(15);
+                float maxHz = rs.getFloat(16);
+                float minHz = rs.getFloat(17);
                 cpu.categoryId = categoryId;
                 cpu.owner = owner;
                 cpu.location = location;
@@ -208,6 +210,8 @@ public class CPUDAO {
                 cpu.frequency = frequency;
                 cpu.sspec = sspec;
                 cpu.category = category;
+                cpu.maxHz = maxHz;
+                cpu.minHz = minHz;
 				cpus.add(cpu);
 			}
 		}catch (SQLException e) {
