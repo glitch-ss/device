@@ -86,9 +86,9 @@ public class MachineController {
 		String path = "/QA/SQA/config/machine_config/";
 		String filepath = path + machine;
 		File file = new File(filepath);
+		File dir = new File(path);
+		String[] fileNames = dir.list();
 		if (machine == null || config == null) {
-			File dir = new File(path);
-			String[] fileNames = dir.list();
 			ModelAndView mav = new ModelAndView("machine");
 			mav.addObject("machines", fileNames);
 			return mav;
@@ -96,9 +96,7 @@ public class MachineController {
 			
 			if (file.exists()) {
                 file.delete();
-            }else {
-            	File dir = new File(path);
-    			String[] fileNames = dir.list();
+            }else {;
             	ModelAndView mav = new ModelAndView("machine");
     			mav.addObject("machines", fileNames);
     			return mav;
