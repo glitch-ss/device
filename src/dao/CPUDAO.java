@@ -11,6 +11,7 @@ import java.util.List;
 
 import pojo.CPU;
 import pojo.CPUdetail;
+import pojo.SQLinfo;
 
 public class CPUDAO {
 	public CPUDAO() {
@@ -22,7 +23,7 @@ public class CPUDAO {
 	}
 	
 	public Connection getConnection() throws SQLException{
-		return DriverManager.getConnection("jdbc:mysql://10.182.92.28:3306/Device?jdbcCompliantTruncation=false&characterEncoding=UTF-8", "raven","Familymart");
+		return DriverManager.getConnection(SQLinfo.sql, SQLinfo.username, SQLinfo.password);
 	}
 	
 	public int getTotal() {

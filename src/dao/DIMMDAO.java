@@ -12,6 +12,7 @@ import java.util.List;
 import pojo.CPUdetail;
 import pojo.DIMM;
 import pojo.DIMMDetail;
+import pojo.SQLinfo;
 
 public class DIMMDAO {
 	public DIMMDAO() {
@@ -23,7 +24,7 @@ public class DIMMDAO {
 	}
 	
 	public Connection getConnection() throws SQLException{
-		return DriverManager.getConnection("jdbc:mysql://10.182.92.28:3306/Device?jdbcCompliantTruncation=false&characterEncoding=UTF-8", "raven","Familymart");
+		return DriverManager.getConnection(SQLinfo.sql, SQLinfo.username, SQLinfo.password);
 	}
 	
 	public int getTotal() {

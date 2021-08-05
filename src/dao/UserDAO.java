@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import pojo.SQLinfo;
 import pojo.User;
 
 public class UserDAO {
@@ -20,7 +21,7 @@ public class UserDAO {
 	}
 	
 	public Connection getConnection() throws SQLException{
-		return DriverManager.getConnection("jdbc:mysql://10.182.92.28:3306/Device?jdbcCompliantTruncation=false&characterEncoding=UTF-8", "raven","Familymart");
+		return DriverManager.getConnection(SQLinfo.sql, SQLinfo.username, SQLinfo.password);
 	}
 	
 	public int getTotal() {

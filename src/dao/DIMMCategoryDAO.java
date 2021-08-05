@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import pojo.DIMMCategory;
+import pojo.SQLinfo;
 
 public class DIMMCategoryDAO {
 	public DIMMCategoryDAO() {
@@ -21,7 +22,7 @@ public class DIMMCategoryDAO {
 	}
 	
 	public Connection getConnection() throws SQLException{
-		return DriverManager.getConnection("jdbc:mysql://10.182.92.28:3306/Device?characterEncoding=UTF-8", "raven","Familymart");
+		return DriverManager.getConnection(SQLinfo.sql, SQLinfo.username, SQLinfo.password);
 	}
 	
 	public int getTotal() {

@@ -11,6 +11,7 @@ import java.util.List;
 
 import pojo.PCIe;
 import pojo.PCIeDetail;
+import pojo.SQLinfo;
 
 public class PCIeDAO {
 	public PCIeDAO() {
@@ -22,7 +23,7 @@ public class PCIeDAO {
 	}
 	
 	public Connection getConnection() throws SQLException{
-		return DriverManager.getConnection("jdbc:mysql://10.182.92.28:3306/Device?jdbcCompliantTruncation=false&characterEncoding=UTF-8", "raven","Familymart");
+		return DriverManager.getConnection(SQLinfo.sql, SQLinfo.username, SQLinfo.password);
 	}
 	
 	public int getTotal() {
