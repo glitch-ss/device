@@ -49,6 +49,11 @@ $(function(){
  
 </table>
 <nav>
+<ul class="pager">
+<li><a href="addcpucategory">Add</a></li>
+</ul>
+</nav>
+<nav>
   <ul class="pager">
 
     <li><a href="?start=0">首  页</a></li>

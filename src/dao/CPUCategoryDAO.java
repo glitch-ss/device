@@ -70,7 +70,7 @@ public class CPUCategoryDAO {
 	}
 	
 	public void update(CPUCategory cpu) {
-		String sql = "udpate CPUCategory set name = ?, cores = ?, nickname = ?, brand = ?, platform = ?, frequency = ?, sspec = ?, category = ?, MaxHz = ?, MinHz = ? where id = ?";
+		String sql = "update CPUCategory set name = ?, cores = ?, nickname = ?, brand = ?, platform = ?, frequency = ?, sspec = ?, category = ?, MaxHz = ?, MinHz = ? where id = ?";
 		try (Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql);) {
 			   
 			ps.setString(1, cpu.name);
@@ -83,7 +83,7 @@ public class CPUCategoryDAO {
 			ps.setString(8, cpu.category);
 			ps.setFloat(9, cpu.maxHz);
 			ps.setFloat(10, cpu.minHz);
-			ps.setInt(9, cpu.id);
+			ps.setInt(11, cpu.id);
    
             ps.execute();
    

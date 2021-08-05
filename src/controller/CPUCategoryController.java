@@ -57,13 +57,13 @@ public class CPUCategoryController {
 	@RequestMapping("/addcpucategory")
 	public ModelAndView addcpucategory(CPUCategory cpu) throws Exception {
 		System.out.println(cpu.name);
-		if (cpu.name != null && "".equals(cpu.name)) {
+		if (cpu.name != null && !("".equals(cpu.name))) {
 			CPUCategoryDAO cd = new CPUCategoryDAO();
 			cd.add(cpu);
 			ModelAndView mav = new ModelAndView("redirect:/cpucategorylist");
 	        return mav;
 		}else {
-			ModelAndView mav = new ModelAndView("redirect:/addcpucategory");
+			ModelAndView mav = new ModelAndView("addcpucategory");
 	        return mav;
 		}
 	}
