@@ -123,22 +123,47 @@
 			</div>
 			<div class="row">
 				<div class="col-sm-6 col-md-2">
-					<h3><a>CPU</a></h3>
+					<h3><a href="/Device/cpulist">CPU</a></h3>
 				</div>
 				<div class="col-sm-6 col-md-2">
-					<h3><a>DIMM</a></h3>
+					<h3><a href="/Device/dimmlist">DIMM</a></h3>
 				</div>
 				<div class="col-sm-6 col-md-2">
-					<h3><a>PCI</a></h3>
+					<h3><a href="/Device/pcilist">PCI</a></h3>
 				</div>
 				<div class="col-sm-6 col-md-2">
-					<h3><a>HD</a></h3>
+					<h3><a href="/Device/hdlist">HD</a></h3>
 				</div>
 				<div class="col-sm-6 col-md-2">
-					<h3><a>MB</a></h3>
+					<h3><a href="/Device/mortherboardlist">MB</a></h3>
 				</div>
 				<div class="col-sm-6 col-md-2">
-					<h3><a>PS</a></h3>
+					<h3><a href="/Device/powersupplylist">PS</a></h3>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-12">
+					<h2>Device Category Info</h2>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-6 col-md-2">
+					<h3><a href="/Device/cpucategorylist">CPU</a></h3>
+				</div>
+				<div class="col-sm-6 col-md-2">
+					<h3><a href="/Device/dimmcategorylist">DIMM</a></h3>
+				</div>
+				<div class="col-sm-6 col-md-2">
+					<h3><a href="/Device/pcicategorylist">PCI</a></h3>
+				</div>
+				<div class="col-sm-6 col-md-2">
+					<h3><a href="/Device/hdcategorylist">HD</a></h3>
+				</div>
+				<div class="col-sm-6 col-md-2">
+					<h3><a href="/Device/mbcategorylist">MB</a></h3>
+				</div>
+				<div class="col-sm-6 col-md-2">
+					<h3><a href="/Device/pscategorylist">PS</a></h3>
 				</div>
 			</div>
 		</div>

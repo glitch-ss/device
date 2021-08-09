@@ -15,7 +15,7 @@ import pojo.CPUdetail;
 
 @Controller
 public class IndexController {
-	@RequestMapping("/index")
+	@RequestMapping("/")
 	public ModelAndView index(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ModelAndView mav = new ModelAndView("index");
 		return mav;
