@@ -8,13 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
-
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import dao.PCIeCategoryDAO;
+import dao.PCIeDAO;
 import pojo.PCIeCategory;
+import pojo.PCIeDetail;
 
 @Controller
 public class PCICategoryController {
@@ -129,6 +132,34 @@ public class PCICategoryController {
 		}
 		ModelAndView mav = new ModelAndView("redirect:/pcicategorylist");
         return mav;
+	}
+	
+	@RequestMapping(value="/getpcicategory", method=RequestMethod.POST, consumes = "application/json")
+	@ResponseBody
+	public Map<String, PCIeCategory> getpcicategory(@RequestBody String req) throws Exception {
+		String partnumber = null;
+		PCIeCategoryDAO pcd = new PCIeCategoryDAO();
+		PCIeCategory pcic = new PCIeCategory();
+		for(String va: req.split("&")) {
+			String val[] = va.split("=");
+			switch(val[0]) {
+			case "partnumber":
+				partnumber = val[1];
+				break;
+			default:
+				System.out.println("value: " + val[0]);
+			}
+		}
+		if (partnumber != null) {
+			pcic = pcd.get(partnumber);
+
+		} else {
+			pcic = null;
+		}
+		Map<String, PCIeCategory> modelMap = new HashMap<String, PCIeCategory>(1);
+	    
+		modelMap.put("pcie", pcic);
+		return modelMap;
 	}
 
 }

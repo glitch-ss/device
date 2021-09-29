@@ -14,17 +14,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import dao.PCIeCategoryDAO;
-import dao.PCIeDAO;
-import pojo.PCIe;
-import pojo.PCIeCategory;
-import pojo.PCIeDetail;
+import dao.HDCategoryDAO;
+import dao.HDDAO;
+import pojo.HD;
+import pojo.HDCategory;
+import pojo.HDDetail;
 
 @Controller
-public class PCIController {
-	@RequestMapping("/pcilist")
-	public ModelAndView cpuList(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		ModelAndView mav = new ModelAndView("pcilist");
+public class HDController {
+	@RequestMapping("/hdlist")
+	public ModelAndView hdList(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ModelAndView mav = new ModelAndView("hdlist");
 		int start = 0;
 		int count = 10;
 		
@@ -37,7 +37,7 @@ public class PCIController {
 		int next = start + count;
 		int pre = start - count;
 		
-		int total = new PCIeDAO().getTotal();
+		int total = new HDDAO().getTotal();
 		
 		int last;
 		if (0 == total % count)
@@ -50,37 +50,37 @@ public class PCIController {
 		mav.addObject("pre", pre);
 		mav.addObject("last", last);
 		
-		List<PCIeDetail> pcis = new PCIeDAO().listDetail(start, count);
-		mav.addObject("pcis", pcis);
+		List<HDDetail> hds = new HDDAO().listDetail(start, count);
+		mav.addObject("hds", hds);
 		return mav;
 	}
 	
-	@RequestMapping("/addpci")
-	public ModelAndView addpci(PCIe pci) throws Exception {
-		int categoryId = 0;
+	@RequestMapping("/addhd")
+	public ModelAndView addpowersupply(HD hd) throws Exception {
+		int categoryId = -1;
 		try {
-			categoryId = pci.categoryId;
+			categoryId = hd.categoryId;
 			System.out.println("id: " + categoryId);
 			
 		} catch(NumberFormatException e) {
 			
 		}
-		if (categoryId == 0) {
-			ModelAndView mav = new ModelAndView("addcpu");
-			List<PCIeCategory> pciscategory = new PCIeCategoryDAO().list();
-			mav.addObject("pcis", pciscategory);
+		if (categoryId == -1) {
+			ModelAndView mav = new ModelAndView("addhd");
+			List<HDCategory> hdcs = new HDCategoryDAO().list();
+			mav.addObject("hds", hdcs);
 			return mav;
 		} else {
 			System.out.println("add: " + categoryId);
-			PCIeDAO cp = new PCIeDAO();
-			cp.add(pci);
-			ModelAndView mav = new ModelAndView("redirect:/pcilist");
+			HDDAO cd = new HDDAO();
+			cd.add(hd);
+			ModelAndView mav = new ModelAndView("redirect:/hdlist");
 	        return mav;
 		}
 	}
-	@RequestMapping("/editpci")
-	public ModelAndView editpci(int id) throws Exception {
-		int Id = 0;
+	@RequestMapping("/edithd")
+	public ModelAndView edithd(int id) throws Exception {
+		int Id = -1;
 		try {
 			Id = Integer.valueOf(id);
 			System.out.println("id: " + Id);
@@ -88,45 +88,45 @@ public class PCIController {
 		} catch(NumberFormatException e) {
 			
 		}
-		if (Id == 0) {
-			ModelAndView mav = new ModelAndView("redirect:/pcilist");
+		if (Id == -1) {
+			ModelAndView mav = new ModelAndView("redirect:/hdlist");
 	        return mav;
 		} else {
 			System.out.println("add: " + Id);
-			PCIeDAO cp = new PCIeDAO();
-			PCIe pci = cp.get(Id);
-			List<PCIeCategory> pciscategory = new PCIeCategoryDAO().list();
-			ModelAndView mav = new ModelAndView("editpci");
-			mav.addObject("pci", pci);
-			mav.addObject("pciscategory", pciscategory);
+			HDDAO cd = new HDDAO();
+			HD hd = cd.get(Id);
+			List<HDCategory> hdcs = new HDCategoryDAO().list();
+			ModelAndView mav = new ModelAndView("edithd");
+			mav.addObject("hd", hd);
+			mav.addObject("hdcs", hdcs);
 	        return mav;
 		}
 	}
 	
-	@RequestMapping("/updatepciaction")
-	public ModelAndView updatecpuaction(PCIe pci) throws Exception {
-		int categoryId = 0;
+	@RequestMapping("/updatehdaction")
+	public ModelAndView updatehdaction(HD hd) throws Exception {
+		int categoryId = -1;
 		try {
-			categoryId = pci.categoryId;
+			categoryId = hd.categoryId;
 			System.out.println("id: " + categoryId);
 			
 		} catch(NumberFormatException e) {
 			
 		}
-		if (categoryId == 0) {
+		if (categoryId == -1) {
 			System.out.println("add: " + categoryId);
 		} else {
 			System.out.println("add: " + categoryId);
-			PCIeDAO cp = new PCIeDAO();
-			System.out.println("serial: " + pci.serialnumber);
-			cp.update(pci);
+			HDDAO cd = new HDDAO();
+			System.out.println("serial: " + hd.serialnumber);
+			cd.update(hd);
 		}
-		ModelAndView mav = new ModelAndView("redirect:/pcilist");
+		ModelAndView mav = new ModelAndView("redirect:/hdlist");
         return mav;
 	}
 	
-	@RequestMapping("/deletepci")
-	public ModelAndView deletecpu(int id) throws Exception {
+	@RequestMapping("/deletehd")
+	public ModelAndView deletehd(int id) throws Exception {
 		int Id = 0;
 		try {
 			Id = id;
@@ -138,21 +138,21 @@ public class PCIController {
 		if (Id == 0) {
 			System.out.println("delete: " + Id);
 		} else {
-			PCIeDAO cp = new PCIeDAO();
-			cp.delete(Id);
+			HDDAO cd = new HDDAO();
+			cd.delete(Id);
 		}
-		ModelAndView mav = new ModelAndView("redirect:/pcilist");
+		ModelAndView mav = new ModelAndView("redirect:/hdlist");
         return mav;
 	}
-
-	@RequestMapping(value="/getpci", method=RequestMethod.POST, consumes = "application/json")
+	
+	@RequestMapping(value="/getHD", method=RequestMethod.POST, consumes = "application/json")
 	@ResponseBody
-	public Map<String, PCIeDetail> getpci(@RequestBody String req) throws Exception {
+	public Map<String, HDDetail> getps(@RequestBody String req) throws Exception {
 		String location = null;
 		String owner = null;
 		String serialnumber = null;
-		PCIeDAO cp = new PCIeDAO();
-		PCIeDetail pcid = new PCIeDetail();
+		HDDAO dd = new HDDAO();
+		HDDetail hdd = new HDDetail();
 		for(String va: req.split("&")) {
 			String val[] = va.split("=");
 			switch(val[0]) {
@@ -170,15 +170,15 @@ public class PCIController {
 			}
 		}
 		if (location != null && owner != null) {
-			pcid = cp.GetByLocation(owner, location);
+			hdd = dd.GetByLocation(owner, location);
 		} else if (serialnumber != null){
-			pcid = cp.GetBySerialnumber(serialnumber);
+			hdd = dd.GetBySerialnumber(serialnumber);
 		} else {
-			pcid = null;
+			hdd = null;
 		}
-		Map<String, PCIeDetail> modelMap = new HashMap<String, PCIeDetail>(1);
+		Map<String, HDDetail> modelMap = new HashMap<String, HDDetail>(1);
 	    
-		modelMap.put("pci", pcid);
+		modelMap.put("hd", hdd);
 		return modelMap;
 	}
 }

@@ -48,7 +48,7 @@ public class PowerSupplyCategoryController {
 	}
 	
 	@RequestMapping("/addpscategory")
-	public ModelAndView addcpucategory(PowerSupplyCategory ps) throws Exception {
+	public ModelAndView addpscategory(PowerSupplyCategory ps) throws Exception {
 		int id = 0;
 		try {
 			id = ps.id;
