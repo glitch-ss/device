@@ -19,6 +19,7 @@ $(function(){
 <head>
 
 </head>
+<body>
 <h3>${name}</h3>
 <h2>CPU</h2>
 <table style="width:100%; margin:0 auto" class="table table-striped table-bordered table-hover  table-condensed" align='center' border='1' cellspacing='0'>
@@ -71,5 +72,8 @@ $(function(){
 <li><a href="update">Update</a></li>
 </ul>
 </nav>
-<nav>
+</body>
+<script src="js/vue.js"></script>
+<script src="https://unpkg.com/vue-router@3.5.2/dist/vue-router.js"></script>
+<script src="js/machine.js"></script>
 </html>
