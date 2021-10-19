@@ -26,5 +26,6 @@
             <bean class="interceptor.UnloginInterceptor"/>     
         </mvc:interceptor> 
     </mvc:interceptors>
+    <mvc:resources mapping="/js/**" location="/WEB-INF/page/js/" />
 
 </beans>
