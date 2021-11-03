@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -15,8 +16,29 @@ import pojo.User;
 
 @Controller
 public class LoginController {
+	private String refer_url = "/";
 	@RequestMapping("/login")
 	public ModelAndView login(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception {
+		ModelAndView mav = new ModelAndView("login");
+		String refer = null;
+		
+		try {
+			refer = request.getHeader("Referer");
+			if (!refer.contains("login")) {
+				String[] l = refer.split("Device");
+				refer_url = l[1];
+			}
+		} catch(NumberFormatException e) {
+			System.out.println(e);
+		}
+		
+		UserDAO ud = new UserDAO();
+		return mav;
+		
+	}
+	
+	@RequestMapping("/logincheck")
+	public ModelAndView logincheck(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception {
 		ModelAndView mav = new ModelAndView("login");
 		
 		String email = null;
@@ -27,12 +49,11 @@ public class LoginController {
 			email = request.getParameter("email");
 			password = request.getParameter("password");
 		} catch(NumberFormatException e) {
-			
+			System.out.println(e);
 		}
 		
 		UserDAO ud = new UserDAO();
 		if (password == null || email == null) {
-			System.out.println("FUCK");
 			return mav;
 		} else {
 			passwordInSql = ud.getPasswordByEmail(email);
@@ -44,7 +65,7 @@ public class LoginController {
 				ud.setLoginKey(user);
 				session.setAttribute("loginkey", loginkey);
 				session.setAttribute("id", user.id);
-				ModelAndView newmav = new ModelAndView("redirect:/cpulist");
+				ModelAndView newmav = new ModelAndView("redirect:" + refer_url);
 		        return newmav;
 			}else {
 				String message = "Wrong password!!";

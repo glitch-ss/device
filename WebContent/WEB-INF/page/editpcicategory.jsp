@@ -10,11 +10,12 @@
 
 <form action="updatepcicategoryaction">
  	<input type="text" name="id" value=${pci.id } hidden=hidden>
-    nick name: <input type="text" name="nickname" value=${pci.nickname}><br/>
+    nick name: <input type="text" name="nickname" value="${pci.nickname}"><br/>
     device category: <input type="text" name="devicecategory" value=${pci.devicecategory}><br/>
     description: <input type="text" name="description" value="${pci.description}"><br />
 	part number: <input type="text" name="partnumber" value="${pci.partnumber}"><br/>
-	part number_ext: <input type="text" name="partnumberext" value=${pci.partnumberext}><br/>
+	part number_ext: <input type="text" name="partnumberext" value="${pci.partnumberext}"><br/>
+	devicename: <input type="text" name="devicename" value="${pci.devicename}"><br/>
 	subsystem: <input type="text" name="subsystem" value="${pci.subsystem}"><br />
 	productname: <input type="text" name="productname" value="${pci.productname}"><br/>
 	width: <input type="text" name="width" value=${pci.width} oninput="value=value.replace(/[^\d]/g,'')"><br/>

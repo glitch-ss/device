@@ -15,6 +15,7 @@
     description: <input type="text" name="description" value=""><br />
 	part number: <input type="text" name="partnumber" value=""><br/>
 	part number_ext: <input type="text" name="partnumberext" value=""><br/>
+	devicename: <input type="text" name="devicename" value=""><br/>
 	subsystem: <input type="text" name="subsystem" value=""><br />
 	productname: <input type="text" name="productname" value=""><br/>
 	width: <input type="text" name="width" value=0 oninput="value=value.replace(/[^\d]/g,'')"><br/>

@@ -8,11 +8,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
   
 
-<form action="login">
+<form action="logincheck">
  
     name: <input type="text" name="name" value=""><br />
 	email: <input type="text" name="email" value=""><br/>
 	password: <input type="text" name="password" value=""><br/> 	
     <input type="submit" value="LoginIn">
+    <a href="signin">signin</a>
 </form>
 <h1>${message }</h1>

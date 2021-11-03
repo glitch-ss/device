@@ -15,6 +15,7 @@ public class PCIeDetail extends PCIe{
 	public String subdeviceid;
 	public String kernelmodule;
 	public String speed;
+	public String devicename;
 	
 	public String getDescription() {
 		return description;
@@ -99,5 +100,11 @@ public class PCIeDetail extends PCIe{
 	}
 	public void setSpeed(String speed) {
 		this.speed = speed;
+	}
+	public String getDevicename() {
+		return devicename;
+	}
+	public void setDevicename(String devicename) {
+		this.devicename = devicename;
 	}
 }

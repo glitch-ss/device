@@ -27,5 +27,7 @@
         </mvc:interceptor> 
     </mvc:interceptors>
     <mvc:resources mapping="/js/**" location="/WEB-INF/page/js/" />
+    <mvc:resources mapping="/css/**" location="/WEB-INF/page/css/" />
+    <mvc:resources mapping="/image/**" location="/WEB-INF/page/image/" />
 
 </beans>

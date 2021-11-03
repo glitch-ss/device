@@ -16,6 +16,7 @@ public class PCIeCategory {
 	public String subvendorid;
 	public String subdeviceid;
 	public String kernelmodule;
+	public String devicename;
 	
 	public int getId() {
 		return id;
@@ -106,5 +107,11 @@ public class PCIeCategory {
 	}
 	public void setSpeed(String speed) {
 		this.speed = speed;
+	}
+	public String getDevicename() {
+		return devicename;
+	}
+	public void setDevicename(String devicename) {
+		this.devicename = devicename;
 	}
 }

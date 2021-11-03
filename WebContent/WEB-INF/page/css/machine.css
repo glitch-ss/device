@@ -1,0 +1,17 @@
+.dimm{
+	margin: 10px;
+}
+.load{
+	width:180px;
+	height:180px;
+	margin:auto 0;
+}
+.modal-content{
+	background:rgb(0,0,0,0%);
+}
+.modal-dialog{
+	margin:300px 40%;
+}
+table{
+	margin:44px auto;
+}

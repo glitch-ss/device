@@ -29,6 +29,9 @@ $(function(){
         <td>platform</td>
         <td>frequency</td>
         <td>category</td>
+        <td>partnumber</td>
+        <td>maxHz</td>
+        <td>minHz</td>
         <td>edit</td>
         <td>delete</td>
     </tr>
@@ -42,6 +45,9 @@ $(function(){
             <td>${cpu.platform}</td>
             <td>${cpu.frequency}</td>
             <td>${cpu.category}</td>
+            <td>${cpu.sspec}</td>
+            <td>${cpu.maxHz}</td>
+            <td>${cpu.minHz}</td>
             <td><a href="editcpucategory?id=${cpu.id}">编辑</a></td>
             <td><a href="deletecpucategory?id=${cpu.id}">删除</a></td>
         </tr>

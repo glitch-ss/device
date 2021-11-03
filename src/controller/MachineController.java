@@ -17,6 +17,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.python.core.PyFunction;
+import org.python.core.PyString;
+import org.python.core.PyObject;
+import org.python.util.PythonInterpreter;
+
 //import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -30,25 +35,33 @@ public class MachineController {
 		String machine = null;
 		try {
 			machine = String.valueOf(request.getParameter("machine"));
+			System.out.println(machine);
 		} catch(NumberFormatException e) {
 			
 		}
 		//machine = "x5-2l-sqa-1";
 		String path = "/QA/SQA/config/machine_config/";
-		if (machine == null) {
+		if (machine == null || machine=="null") {
+			System.out.println("machine is null");
 			File dir = new File(path);
 			String[] fileNames = dir.list();
 			ModelAndView mav = new ModelAndView("machine");
 			mav.addObject("machines", fileNames);
 			return mav;
 		}else {
+			System.out.println(machine);
 			String filepath = path + machine;
 			File file = new File(filepath);
 			String label = machine.substring(0, 5);
 			String page_file = "machine-" + label;
 			ModelAndView mav = new ModelAndView(page_file);
+			mav.addObject("name", machine);
+			if (!file.exists()){
+				return mav;
+			}
 			PCIeCategoryDAO pd = new PCIeCategoryDAO();
 			String file1 = FileUtils.readFileToString(file);
+			
 			JSONObject machineJson = JSON.parseObject(file1);
 			JSONObject pci = machineJson.getJSONObject("pcie");
 			for (Map.Entry entry : pci.entrySet()) {
@@ -59,9 +72,13 @@ public class MachineController {
 				String partnumber = String.valueOf(device.get("partnumber"));
 				PCIeCategory pciitem = pd.get(partnumber);
 				System.out.println(pciitem);
-				device.put("nickname", pciitem.nickname);
+				if (pciitem == null) {
+					device.put("nickname", "unKnown");
+				}else {
+					device.put("nickname", pciitem.nickname);
+				}
 			}
-			mav.addObject("name", machine);
+			
 			mav.addObject("machine", machineJson);
 			return mav;
 		}
@@ -130,5 +147,35 @@ public class MachineController {
 		ModelAndView mav = new ModelAndView("machine");
 		mav.addObject("machines", fileNames);
 		return mav;
+	}
+	
+	@RequestMapping("/updatemachine")
+	public ModelAndView updatemachine(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String machine = null;
+		String config = null;
+		JSONObject configJson = null;
+		String tempValue = null;
+		String key = null;
+		JSONObject machineJson = null;
+		try {
+			machine = String.valueOf(request.getParameter("machine"));
+			config = String.valueOf(request.getParameter("config"));
+			configJson = JSONObject.parseObject(config);
+		} catch(NumberFormatException e) {
+			
+		}
+		/*
+		PythonInterpreter interpreter = new PythonInterpreter();
+		interpreter.execfile("/home/raven/scandevice.py");
+		PyFunction pyFunction = interpreter.get("main", PyFunction.class);
+		PyObject pyobj = pyFunction.__call__(new PyString(machine));
+		System.out.println("the output is: " + pyobj);
+		*/
+		Process proc = Runtime.getRuntime().exec("python /home/raven/scandevice.py " + machine);  
+		int exitcode = proc.waitFor(); 
+		System.out.println(exitcode);
+		System.out.println("done");
+		ModelAndView newmav = new ModelAndView("redirect:/machine?machine=" + machine);
+        return newmav;
 	}
 }
