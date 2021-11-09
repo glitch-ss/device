@@ -24,6 +24,7 @@ $(function(){
     <td>id</td>
 	<td>partnumber</td>
 	<td>size</td>
+	<td>capacity</td>
 	<td>manufacture</td>
 	<td>type</td>
 	<td>edit</td>
@@ -34,6 +35,7 @@ $(function(){
             <td>${hdc.id}</td>
             <td>${hdc.partnumber}</td>
             <td>${hdc.size}</td>
+            <td>${hdc.capacity}</td>
             <td>${hdc.manufacture}</td>
             <td>${hdc.type}</td>
             <td><a href="edithdcategory?id=${hdc.id}">编辑</a></td>

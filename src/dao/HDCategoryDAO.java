@@ -45,13 +45,14 @@ public class HDCategoryDAO {
 	}
 	
 	public void add(HDCategory hdc) {
-		String sql = "insert into HDCategory value(null, ?, ?, ?, ?)";
+		String sql = "insert into HDCategory value(null, ?, ?, ?, ?, ?)";
 		try(Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql);){
 			
 			ps.setString(1, hdc.partnumber);
-			ps.setInt(2, hdc.size);
+			ps.setString(2, hdc.size);
 			ps.setString(3, hdc.manufacture);
 			ps.setString(4, hdc.type);
+			ps.setInt(5,  hdc.capacity);
 			
 			ps.execute();
 			
@@ -66,15 +67,16 @@ public class HDCategoryDAO {
 	}
 	
 	public void update(HDCategory hdc) {
-		String sql = "udpate HDCategory set partnumber = ?, size = ?, manufacture = ?, type = ? where id = ?";
+		String sql = "update HDCategory set partnumber = ?, size = ?, manufacture = ?, type = ?, capacity = ? where id = ?";
 		try (Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql);) {
 			   
 			ps.setString(1, hdc.partnumber);
-			ps.setInt(2, hdc.size);
+			ps.setString(2, hdc.size);
 			ps.setString(3, hdc.manufacture);
 			ps.setString(4, hdc.type);
+			ps.setInt(5,  hdc.capacity);
 
-			ps.setInt(5, hdc.id);
+			ps.setInt(6, hdc.id);
    
             ps.execute();
    
@@ -109,13 +111,15 @@ public class HDCategoryDAO {
             if (rs.next()) {
             	hdc = new HDCategory();
                 String partnumber = rs.getString(2);
-                int size = rs.getInt(3);
+                String size = rs.getString(3);
                 String manufacture = rs.getString(4);
                 String type = rs.getString(5);
+                int capacity = rs.getInt(6);
                 hdc.partnumber = partnumber;
                 hdc.size = size;
                 hdc.manufacture = manufacture;
                 hdc.type = type;
+                hdc.capacity = capacity;
                 hdc.id = id;
             }
    
@@ -141,13 +145,15 @@ public class HDCategoryDAO {
             if (rs.next()) {
             	hdc = new HDCategory();
             	int id = rs.getInt(1);
-                int size = rs.getInt(3);
+                String size = rs.getString(3);
                 String manufacture = rs.getString(4);
                 String type = rs.getString(5);
+                int capacity = rs.getInt(6);
                 hdc.partnumber = partnumber;
                 hdc.size = size;
                 hdc.manufacture = manufacture;
                 hdc.type = type;
+                hdc.capacity = capacity;
                 hdc.id = id;
             }
    
@@ -177,14 +183,16 @@ public class HDCategoryDAO {
 				HDCategory hdc = new HDCategory();
 				int id = rs.getInt(1);
 				String partnumber = rs.getString(2);
-                int size = rs.getInt(3);
+                String size = rs.getString(3);
                 String manufacture = rs.getString(4);
                 String type = rs.getString(5);
+                int capacity = rs.getInt(6);
                 hdc.partnumber = partnumber;
                 hdc.size = size;
                 hdc.manufacture = manufacture;
                 hdc.type = type;
                 hdc.id = id;
+                hdc.capacity = capacity;
 				hdcs.add(hdc);
 			}
 		}catch (SQLException e) {

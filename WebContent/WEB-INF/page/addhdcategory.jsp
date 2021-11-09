@@ -13,6 +13,7 @@
     
     partnumber: <input type="text" name="partnumber" value=""><br />
     size: <input type="text" name="size" value=""><br/>
+    capacity: <input type="text" name="capacity" value=""><br/>
 	manufacture: <input type="text" name="manufacture" value=""><br/>
 	type: <input type="text" name="type" value=""><br/>
     <input type="submit" value="Add HD">

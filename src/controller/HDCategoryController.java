@@ -57,13 +57,19 @@ public class HDCategoryController {
 	@RequestMapping("/addhdcategory")
 	public ModelAndView addhdcategory(HDCategory hdc) throws Exception {
 		int id = -1;
+		String partnumber = null;
 		try {
 			id = hdc.id;
+			partnumber = hdc.partnumber;
 			System.out.println("id: " + id);
-			
+			if(partnumber == null) {
+				id = -1;
+			}
 		} catch(NumberFormatException e) {
 			
 		}
+		System.out.println(hdc.partnumber);
+		System.out.println(hdc.partnumber);
 		if (id == -1) {
 			ModelAndView mav = new ModelAndView("addhdcategory");
 			return mav;

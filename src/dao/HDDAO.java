@@ -188,9 +188,10 @@ public class HDDAO {
                 String location = rs.getString(5);
                 String label = rs.getString(6);
                 String partnumber = rs.getString(8);
-                int size = rs.getInt(9);
+                String size = rs.getString(9);
                 String manufacture = rs.getString(10);
                 String type = rs.getString(11);
+                int capacity = rs.getInt(12);
                 hdd.categoryId = categoryId;
                 hdd.owner = owner;
                 hdd.location = location;
@@ -201,6 +202,7 @@ public class HDDAO {
                 hdd.partnumber = partnumber;
                 hdd.manufacture = manufacture;
                 hdd.type = type;
+                hdd.capacity = capacity;
                 hdds.add(hdd);
 			}
 		}catch (SQLException e) {
@@ -228,9 +230,10 @@ public class HDDAO {
                 String location = rs.getString(5);
                 String label = rs.getString(6);
                 String partnumber = rs.getString(8);
-                int size = rs.getInt(9);
+                String size = rs.getString(9);
                 String manufacture = rs.getString(10);
                 String type = rs.getString(11);
+                int capacity = rs.getInt(12);
                 hdd.categoryId = categoryId;
                 hdd.owner = owner;
                 hdd.location = location;
@@ -241,6 +244,7 @@ public class HDDAO {
                 hdd.partnumber = partnumber;
                 hdd.manufacture = manufacture;
                 hdd.type = type;
+                hdd.capacity = capacity;
 			}
 		}catch (SQLException e) {
 			e.printStackTrace();
@@ -267,9 +271,10 @@ public HDDetail GetBySerialnumber(String qserialnumber){
                 String location = rs.getString(5);
                 String label = rs.getString(6);
                 String partnumber = rs.getString(8);
-                int size = rs.getInt(9);
+                String size = rs.getString(9);
                 String manufacture = rs.getString(10);
                 String type = rs.getString(11);
+                int capacity = rs.getInt(12);
                 hdd.categoryId = categoryId;
                 hdd.owner = owner;
                 hdd.location = location;
@@ -280,6 +285,7 @@ public HDDetail GetBySerialnumber(String qserialnumber){
                 hdd.partnumber = partnumber;
                 hdd.manufacture = manufacture;
                 hdd.type = type;
+                hdd.capacity = capacity;
 			}
 		}catch (SQLException e) {
 			e.printStackTrace();

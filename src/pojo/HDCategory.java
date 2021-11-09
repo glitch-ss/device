@@ -3,7 +3,8 @@ package pojo;
 public class HDCategory {
 	public int id;
 	public String partnumber;
-	public int size;
+	public String size;
+	public int capacity;
 	public String manufacture;
 	public String type;
 	
@@ -19,11 +20,17 @@ public class HDCategory {
 	public void setPartnumber(String partnumber) {
 		this.partnumber = partnumber;
 	}
-	public int getSize() {
+	public String getSize() {
 		return size;
 	}
-	public void setSize(int size) {
+	public void setSize(String size) {
 		this.size = size;
+	}
+	public int getCapacity() {
+		return capacity;
+	}
+	public void setCapacity(int capacity) {
+		this.capacity = capacity;
 	}
 	public String getManufacture() {
 		return manufacture;
