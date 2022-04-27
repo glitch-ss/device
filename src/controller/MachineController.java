@@ -3,6 +3,11 @@ import java.util.List;
 import java.util.Map;
 import java.io.*;
 
+import java.io.BufferedReader;    
+import java.io.IOException;    
+import java.io.InputStream;    
+import java.io.InputStreamReader; 
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -173,7 +178,16 @@ public class MachineController {
 		*/
 		Process proc = Runtime.getRuntime().exec("python /home/raven/scandevice.py " + machine);  
 		int exitcode = proc.waitFor(); 
+		InputStream fis=proc.getInputStream();
 		System.out.println(exitcode);
+		System.out.println(fis);
+		InputStreamReader isr=new InputStreamReader(fis);
+		BufferedReader br=new BufferedReader(isr);
+		String line=null;
+		while((line=br.readLine())!=null)    
+        {    
+            System.out.println(line);    
+        }  
 		System.out.println("done");
 		ModelAndView newmav = new ModelAndView("redirect:/machine?machine=" + machine);
         return newmav;
